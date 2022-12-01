@@ -9,9 +9,9 @@ export default async function Home() {
             <h1>Home page</h1>
             <h2>Latest Reviews</h2>
 
-            {users.map((each) => {
+            {/* {users.map((each) => {
                 return <p>{each.email}</p>;
-            })}
+            })} */}
 
             {/* <h2>Most Helpful Reviews</h2> */}
         </div>
