@@ -1,17 +1,26 @@
-html{
-}
+$color-lgreen: #72B01D;
+$color-yelllow: #C6CA53;
+$color-dark: #555358;
+$color-light: #5F6062;
+$color-white: #C9DCB3;
+
+html,
 body {
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-    background: #555358;  
+    background: $color-dark;  
 
 
 }
 
+.green-text {
+  color: $color-lgreen;
+}
+
 h1,h2,h3{
-  color: #72B01D;
+  color: $color-lgreen;
 }
 
 a {
@@ -26,15 +35,15 @@ a {
 
 
 main div{
-  background:#5F6062;
+  background: $color-light;
   padding: 1rem 0;
   margin: 0 2rem ;
   h1{
     text-align: center;
   }
   .submitBTN{
-    background-color: #C6CA53;
-    color: #555358;
+    background-color: $color-lgreen;
+    color: black;
   }
 }
 
@@ -42,7 +51,7 @@ footer{
 
   margin-top: 1rem;
   padding: 1rem;
-  background-color: #C9DCB3;
+  background-color: $color-white;
   position: fixed;
   bottom: 0;
   left: 0;

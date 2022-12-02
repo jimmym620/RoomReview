@@ -8,7 +8,7 @@ function SignInForm() {
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>
                     <Form.Control type="email" placeholder="Enter email" />
-                    <Form.Text className="text-muted">
+                    <Form.Text className="green-text">
                         This will be your username.
                     </Form.Text>
                 </Form.Group>
