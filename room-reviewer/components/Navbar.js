@@ -14,6 +14,7 @@ function NavigationBar() {
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
                             <Nav.Link href="/reviews">Recent Reviews</Nav.Link>
+                            <Nav.Link href="/register">Sign up</Nav.Link>
                             <NavDropdown
                                 title="Dashboard"
                                 id="basic-nav-dropdown"
@@ -21,7 +22,7 @@ function NavigationBar() {
                                 <NavDropdown.Item href="/dashboard">
                                     Account
                                 </NavDropdown.Item>
-                                <NavDropdown.Item href="#">
+                                <NavDropdown.Item href="/dashboard/profile">
                                     Profile
                                 </NavDropdown.Item>
                                 <NavDropdown.Item href="#">

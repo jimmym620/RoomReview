@@ -17,7 +17,7 @@ function SignInForm() {
                     <Form.Label>Password</Form.Label>
                     <Form.Control type="password" placeholder="Password" />
                 </Form.Group>
-                <Button variant="primary" type="submit">
+                <Button className="submitBTN" type="submit">
                     Submit
                 </Button>
             </Form>

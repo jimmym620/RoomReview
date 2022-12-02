@@ -1,11 +1,3 @@
-import SignInForm from "../../components/SignInForm";
-
-function Dashboard() {
-    return (
-        <div>
-            <h1>Dashboard</h1>
-            <SignInForm />
-        </div>
-    );
+export default function index() {
+    return <div>dashboard</div>;
 }
-export default Dashboard;
