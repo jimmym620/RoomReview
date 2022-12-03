@@ -25,7 +25,7 @@ function NavigationBar() {
                                 <NavDropdown.Item href="/dashboard/profile">
                                     Profile
                                 </NavDropdown.Item>
-                                <NavDropdown.Item href="#">
+                                <NavDropdown.Item href="/dashboard/settings">
                                     Settings
                                 </NavDropdown.Item>
                                 {/* <NavDropdown.Divider /> */}
