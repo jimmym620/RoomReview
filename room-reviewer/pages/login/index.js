@@ -9,7 +9,6 @@ function Dashboard() {
         return (
             <div>
                 <p>Welcome, {session.user.name}</p>
-                {console.log(session)}
                 <img
                     src={session.user.image}
                     alt="User Image"
