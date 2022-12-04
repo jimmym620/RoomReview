@@ -1,7 +1,17 @@
+import { useSession, signOut } from "next-auth/react";
+
 export default function Profile() {
-    return (
+    const { data: session, status } = useSession({ required: true });
+
+    if (status === "authenticated") {
+        return (
+            <div>
+                <p>Welcome {session.user.name}</p>
+            </div>
+        );
+    } else {
         <div>
-            <h1>Profile page</h1>
-        </div>
-    );
+            <p> You are not signed in</p>
+        </div>;
+    }
 }

@@ -1,15 +1,17 @@
 // _app.js
-
-import { SSRProvider } from "react-bootstrap";
+import SSRProvider from "react-bootstrap/SSRProvider";
+import { SessionProvider } from "next-auth/react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../styles/globals.scss";
 import Layout from "../components/Layout";
-const MyApp = ({ Component, pageProps, auth }) => {
+import "../styles/globals.scss";
+const MyApp = ({ Component, pageProps, session }) => {
     return (
         <SSRProvider>
-            <Layout>
-                <Component {...pageProps} />
-            </Layout>
+            <SessionProvider session={session}>
+                <Layout>
+                    <Component {...pageProps} />
+                </Layout>
+            </SessionProvider>
         </SSRProvider>
     );
 };
