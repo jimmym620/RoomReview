@@ -28,13 +28,13 @@ export default function Profile() {
 
 export const getServerSideProps = async (context) => {
     const session = await getSession(context);
-        if(!session){
-            return{
-                redirect:{
-                    destination: '/login'
-                }
-            }
-        }
+    if (!session) {
+        return {
+            redirect: {
+                destination: "/login",
+            },
+        };
+    }
     return {
         props: { session },
     };

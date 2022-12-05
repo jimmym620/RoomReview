@@ -14,6 +14,7 @@ function Dashboard() {
                     alt="User Image"
                     style={{ borderRadius: "50px" }}
                 />
+                {console.log(session)}
                 <Button
                     onClick={() => {
                         signOut();
