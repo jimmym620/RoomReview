@@ -11,5 +11,9 @@ export const authOptions = {
         // ...add more providers here
     ],
     secret: process.env.JWT_SECRET,
+    session: {
+        maxAge: 60 * 60 * 24 * 2, // 2 days
+        updateAge: 24 * 60 * 60, // 24 hours --- How frequently to extend a session
+    },
 };
 export default NextAuth(authOptions);
