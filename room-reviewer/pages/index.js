@@ -9,9 +9,11 @@ export default function index(props) {
     return (
         <div>
             <h1>Home page</h1>
-            {/* {session ? <SessionedHomePage /> : <UnsessionedHomePage />} */}
-            <SessionedHomePage />
-            <p>{props.user.name}</p>
+            {session ? (
+                <SessionedHomePage userData={props.user} />
+            ) : (
+                <UnsessionedHomePage />
+            )}
         </div>
     );
 }

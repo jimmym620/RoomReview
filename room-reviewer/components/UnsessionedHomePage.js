@@ -1,7 +1,7 @@
 function UnsessionedHomePage() {
     return (
         <div>
-            <p>YOu are not logged in </p>
+            <p>You are not logged in </p>
         </div>
     );
 }
