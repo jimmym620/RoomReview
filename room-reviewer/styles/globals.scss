@@ -21,9 +21,6 @@ body {
   color: $color-lgreen;
 }
 
-h1,h2,h3{
-  color: $color-lgreen;
-}
 
 a {
   color: inherit;
@@ -41,6 +38,7 @@ main div{
   margin: 0 2rem ;
   h1{
     text-align: center;
+    color: $color-lgreen;
   }
   .submitBTN{
     background-color: $color-lgreen;
@@ -67,6 +65,21 @@ footer{
     margin: 1rem 0;
   }
 }
+
+.review{
+    background: $color-white;
+    padding: 1rem 0;
+    margin: 1rem auto;
+    h2, .rating, p{
+      text-align: center;
+    }
+    .rating{
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+ 
+}
+
 
 /* @media (prefers-color-scheme: dark) {
   html {

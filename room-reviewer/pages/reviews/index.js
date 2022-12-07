@@ -2,9 +2,19 @@ export default function Index({ reviews }) {
     return (
         <div>
             <h1>Recently Posted</h1>
-            {reviews.map((review) => {
-                return <p>{review.title}</p>;
-            })}
+            <section>
+                {reviews.map((review) => {
+                    return (
+                        <article className="review w-25 ">
+                            <h2>{review.title}</h2>
+                            <p className="rating xl"> {review.rating} / 5</p>
+                            <p>{review.comment}</p>
+                            <p>Date of visit</p>
+                            <p>{review.dateVisited}</p>
+                        </article>
+                    );
+                })}
+            </section>
         </div>
     );
 }
