@@ -1,27 +1,22 @@
-import axios from "axios";
-
-export default function Reviews(props) {
+export default function Index({ reviews }) {
     return (
         <div>
             <h1>Recently Posted</h1>
-            {console.log(props.reviews)}
+            {reviews.map((review) => {
+                return <p>{review.title}</p>;
+            })}
         </div>
     );
 }
 
 export async function getServerSideProps(context) {
     try {
-        // get all reviews
-        const reviews = await axios.get(
+        const reviews = await fetch(
             "http://localhost:3000/api/reviews/requests"
-        ).data;
+        ).then((res) => res.json());
 
         return {
             props: { reviews },
-            redirect: {
-                permanent: false,
-                destination: "/",
-            },
         };
     } catch (error) {
         console.log(error);

@@ -3,7 +3,7 @@ import Review from "../../../mongoDB/models/reviewModel";
 
 export default async function handler(req, res) {
     if (req.method === "POST") {
-        connectMongo();
+        await connectMongo();
         await Review.create(
             {
                 title: req.body.title,
@@ -21,16 +21,16 @@ export default async function handler(req, res) {
         );
     }
     if (req.method === "GET") {
-        connectMongo();
-        Review.find({}, function (error, foundReviews) {
+        await connectMongo();
+        await Review.find({}, function (error, foundReviews) {
             if (error) {
                 res.status(error).send(error);
             } else {
                 if (foundReviews) {
                     console.log("review found");
-                    res.json(foundReviews);
+                    res.send(foundReviews);
                 }
             }
-        });
+        }).clone();
     }
 }
