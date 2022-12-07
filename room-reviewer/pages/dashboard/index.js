@@ -1,8 +1,9 @@
-import { useSession, getSession } from "next-auth/react";
+import { useSession, getSession, signIn, signOut } from "next-auth/react";
+import Button from "react-bootstrap/Button";
 
 export default function index() {
-    const {data: session, status} = useSession();
-    if (status === 'authenticated'){
+    const { data: session, status } = useSession();
+    if (status === "authenticated") {
         return (
             <div>
                 <p>Welcome {session.user.name}</p>
@@ -14,7 +15,7 @@ export default function index() {
                     Sign Out
                 </Button>
             </div>
-        )
+        );
     } else {
         return (
             <div>
