@@ -15,6 +15,9 @@ function NavigationBar() {
                         <Nav className="me-auto">
                             <Nav.Link href="/reviews">Recent Reviews</Nav.Link>
                             <Nav.Link href="/login">Sign up</Nav.Link>
+                            <Nav.Link href="/reviews/submit">
+                                Add a Review
+                            </Nav.Link>
                             <NavDropdown
                                 title="Dashboard"
                                 id="basic-nav-dropdown"

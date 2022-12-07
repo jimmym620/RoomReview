@@ -4,6 +4,7 @@ import User from "./userModel";
 const reviewSchema = new Schema({
     _id: Schema.Types.ObjectId,
     title: { type: String, required: true },
+    rating: { type: Number, required: true },
     body: { type: String },
     upvotes: Number,
     datePosted: Date.now(),
