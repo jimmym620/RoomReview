@@ -20,6 +20,7 @@ export default function index(props) {
 
 export async function getServerSideProps(context) {
     try {
+        // get all reviews
         const response = await axios.get("http://localhost:3000/api/user/get");
         const user = response.data;
 

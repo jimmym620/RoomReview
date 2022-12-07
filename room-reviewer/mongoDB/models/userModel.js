@@ -1,12 +1,14 @@
-import mongoose, { Schema, model, models } from "mongoose";
+import { Schema, model, models } from "mongoose";
 
-const userSchema = new mongoose.Schema({
+const userSchema = new Schema({
+    _id: Schema.Types.ObjectId,
     email: { type: String, required: true, unique: true },
-    username: String,
-    password: { type: String },
+    username: { type: String, required: true, unique: true },
+    posts: [],
+    upvotes: Number,
 });
 
 // Check if models exists
-const testUser = models.testUser || model("testUser", userSchema);
+const User = models.user || model("User", userSchema);
 
-export default testUser;
+export default User;
