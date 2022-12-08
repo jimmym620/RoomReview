@@ -20,6 +20,13 @@ export default function index() {
         return (
             <div>
                 <p> You are not signed in</p>
+                <Button
+                    onClick={() => {
+                        signIn();
+                    }}
+                >
+                    Sign In
+                </Button>
             </div>
         );
     }

@@ -1,20 +1,22 @@
-import Link from "next/Link";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import { useSession, signIn, signOut } from "next-auth/react";
+import Button from "react-bootstrap/Button";
 
 function NavigationBar() {
+    const { data: session, status } = useSession();
+
     return (
         <div>
             <Navbar bg="light" expand="lg">
-                <Container>
+                <Container className="w-50">
                     <Navbar.Brand href="/">Room Reviewer</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
                             <Nav.Link href="/reviews">Recent Reviews</Nav.Link>
-                            <Nav.Link href="/login">Sign up</Nav.Link>
                             <Nav.Link href="/reviews/submit">
                                 Add a Review
                             </Nav.Link>
@@ -39,6 +41,35 @@ function NavigationBar() {
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
+                <div className="profile-container ">
+                    {/* if user is authenticated, render sign in or out button*/}
+                    {status === "authenticated" ? (
+                        <div>
+                            <img
+                                className="userImage"
+                                src={session.user.image}
+                                alt=""
+                            />
+                            <Button
+                                onClick={() => {
+                                    signOut();
+                                }}
+                            >
+                                Sign Out
+                            </Button>
+                        </div>
+                    ) : (
+                        <div>
+                            <Button
+                                onClick={() => {
+                                    signIn();
+                                }}
+                            >
+                                Sign In
+                            </Button>
+                        </div>
+                    )}
+                </div>
             </Navbar>
         </div>
     );
