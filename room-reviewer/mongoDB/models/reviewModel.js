@@ -8,7 +8,8 @@ const reviewSchema = new Schema({
     upvotes: Number,
     // datePosted: Date.now(),
     dateVisited: Date,
-    author: { type: Schema.Types.ObjectId, ref: "User" },
+    author: String,
+    authorID: String,
 });
 
 // Check if models exists

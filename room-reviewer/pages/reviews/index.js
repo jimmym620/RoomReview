@@ -1,16 +1,23 @@
+import moment from "moment";
+
 export default function Index({ reviews }) {
     return (
         <div>
             <h1>Recently Posted</h1>
-            <section>
+            <section className="w-100">
                 {reviews.map((review) => {
                     return (
-                        <article className="review w-25" key={review._id}>
+                        <article className="review" key={review._id}>
                             <h2>{review.title}</h2>
                             <p className="rating xl"> {review.rating} / 5</p>
                             <p>{review.comment}</p>
                             <p>Date of visit</p>
-                            <p>{review.dateVisited}</p>
+                            <p>
+                                {moment
+                                    .utc(review.dateVisited)
+                                    .format("DD/MM/YYYY")}
+                            </p>
+                            <p>By {review.author}</p>
                         </article>
                     );
                 })}

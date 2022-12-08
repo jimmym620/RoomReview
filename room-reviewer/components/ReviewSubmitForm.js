@@ -1,7 +1,9 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { useSession } from "next-auth/react";
 
 function ReviewSubmitForm() {
+    const { data: session } = useSession();
     return (
         <div>
             <Form
@@ -15,6 +17,18 @@ function ReviewSubmitForm() {
                         type="text"
                         name="title"
                         placeholder="Enter Title"
+                    />
+                </Form.Group>
+                <Form.Group>
+                    <input
+                        type="hidden"
+                        name="author"
+                        value={session.user.name}
+                    />
+                    <input
+                        type="hidden"
+                        name="authorID"
+                        value={session.user.id}
                     />
                 </Form.Group>
                 <Form.Group>
