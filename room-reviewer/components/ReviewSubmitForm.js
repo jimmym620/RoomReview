@@ -20,17 +20,17 @@ function ReviewSubmitForm() {
                     />
                 </Form.Group>
                 <Form.Group>
-                    <input
-                        type="hidden"
-                        name="author"
-                        value={session.user.name}
-                    />
-                    <input
-                        type="hidden"
-                        name="authorID"
-                        value={session.user.id}
+                    <Form.Label>Location (city)</Form.Label>
+                    <Form.Control
+                        type="text"
+                        name="city"
+                        placeholder="London, Madrid, Paris"
                     />
                 </Form.Group>
+
+                <input type="hidden" name="author" value={session.user.name} />
+                <input type="hidden" name="authorID" value={session.user.id} />
+
                 <Form.Group>
                     <Form.Label htmlFor="rating">
                         How would you rate your experience ?
