@@ -6,28 +6,28 @@ export default function index() {
     if (status === "authenticated") {
         return (
             <div>
-                <p>Welcome {session.user.name}</p>
-                <Button
-                    onClick={() => {
-                        signOut();
-                    }}
-                >
-                    Sign Out
-                </Button>
+                <h1>Dashboard</h1>
+                <section id="dashboard">
+                    <h2>Your profile</h2>
+                    <div>
+                        <p>Your reviews:</p>
+                        <p>Reviews liked by others:</p>
+                    </div>
+                    <h2>Your written reviews</h2>
+                </section>
             </div>
         );
     } else {
         return (
             <div>
-                <p> You are not signed in</p>
-                <Button
-                    onClick={() => {
-                        signIn();
-                    }}
-                >
-                    Sign In
-                </Button>
+                <h3>Sign in to view this page</h3>
             </div>
         );
     }
 }
+
+export const getServerSideProps = async (context) => {
+    return {
+        props: {},
+    };
+};

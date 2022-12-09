@@ -16,7 +16,7 @@ function ReviewSubmitForm() {
                     <Form.Control
                         type="text"
                         name="title"
-                        placeholder="Enter Title"
+                        placeholder="Review Title"
                     />
                 </Form.Group>
                 <Form.Group>
@@ -29,7 +29,7 @@ function ReviewSubmitForm() {
 
                 <Form.Group>
                     <Form.Label htmlFor="rating">
-                        How would you rate your experience ?
+                        How would you rate your experience?
                     </Form.Label>
                     <select className="form-control" name="rating">
                         <option>1</option>
@@ -47,7 +47,9 @@ function ReviewSubmitForm() {
                 </Form.Group>
 
                 <Form.Group className="mb-2" controlId="formBasicBody">
-                    <Form.Label>Describe your experience (optional)</Form.Label>
+                    <Form.Label>
+                        Describe your experience <i>(optional)</i>
+                    </Form.Label>
                     <textarea
                         className="form-control"
                         name="comment"

@@ -24,10 +24,7 @@ function NavigationBar() {
                                 title="Dashboard"
                                 id="basic-nav-dropdown"
                             >
-                                <NavDropdown.Item href="/dashboard">
-                                    Account
-                                </NavDropdown.Item>
-                                <NavDropdown.Item href="/dashboard/profile">
+                                <NavDropdown.Item href="/dashboard/">
                                     Profile
                                 </NavDropdown.Item>
                                 <NavDropdown.Item href="/dashboard/settings">

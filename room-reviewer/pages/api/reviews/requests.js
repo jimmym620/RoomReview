@@ -30,7 +30,6 @@ export default async function handler(req, res) {
                 res.status(error).send(error);
             } else {
                 if (foundReviews) {
-                    console.log("review found");
                     res.send(foundReviews);
                 }
             }

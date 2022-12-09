@@ -114,6 +114,12 @@ main div {
     height: 2rem;
 }
 
+#dashboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 footer {
     margin-top: 0.5rem;
     padding: 0.5rem;
