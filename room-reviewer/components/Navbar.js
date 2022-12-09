@@ -10,8 +10,8 @@ function NavigationBar() {
 
     return (
         <div>
-            <Navbar bg="light" expand="lg">
-                <Container className="w-50">
+            <Navbar id="navigation" expand="lg">
+                <Container>
                     <Navbar.Brand href="/">Room Reviewer</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
@@ -39,37 +39,37 @@ function NavigationBar() {
                                 </NavDropdown.Item> */}
                             </NavDropdown>
                         </Nav>
+                        <div className="profile-container ">
+                            {/* if user is authenticated, render sign in or out button*/}
+                            {status === "authenticated" ? (
+                                <div>
+                                    <img
+                                        className="userImage"
+                                        src={session.user.image}
+                                        alt=""
+                                    />
+                                    <Button
+                                        onClick={() => {
+                                            signOut();
+                                        }}
+                                    >
+                                        Sign Out
+                                    </Button>
+                                </div>
+                            ) : (
+                                <div>
+                                    <Button
+                                        onClick={() => {
+                                            signIn();
+                                        }}
+                                    >
+                                        Sign In
+                                    </Button>
+                                </div>
+                            )}
+                        </div>
                     </Navbar.Collapse>
                 </Container>
-                <div className="profile-container ">
-                    {/* if user is authenticated, render sign in or out button*/}
-                    {status === "authenticated" ? (
-                        <div>
-                            <img
-                                className="userImage"
-                                src={session.user.image}
-                                alt=""
-                            />
-                            <Button
-                                onClick={() => {
-                                    signOut();
-                                }}
-                            >
-                                Sign Out
-                            </Button>
-                        </div>
-                    ) : (
-                        <div>
-                            <Button
-                                onClick={() => {
-                                    signIn();
-                                }}
-                            >
-                                Sign In
-                            </Button>
-                        </div>
-                    )}
-                </div>
             </Navbar>
         </div>
     );

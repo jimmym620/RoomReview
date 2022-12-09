@@ -7,7 +7,7 @@ function ReviewSubmitForm() {
     return (
         <div>
             <Form
-                className="reviewForm w-25"
+                className="reviewForm "
                 action="/api/reviews/requests"
                 method="post"
             >
@@ -20,12 +20,8 @@ function ReviewSubmitForm() {
                     />
                 </Form.Group>
                 <Form.Group>
-                    <Form.Label>Location (city)</Form.Label>
-                    <Form.Control
-                        type="text"
-                        name="city"
-                        placeholder="London, Madrid, Paris"
-                    />
+                    <Form.Label>Hotel name / Place of stay </Form.Label>
+                    <Form.Control type="text" name="location" />
                 </Form.Group>
 
                 <input type="hidden" name="author" value={session.user.name} />

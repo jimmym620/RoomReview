@@ -10,6 +10,7 @@ export default async function handler(req, res) {
                 rating: req.body.rating,
                 dateVisited: req.body.dateVisited,
                 comment: req.body.comment,
+                location: req.body.location,
                 author: req.body.author,
                 authorID: req.body.authorID,
             },

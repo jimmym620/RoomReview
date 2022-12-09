@@ -4,20 +4,33 @@ export default function Index({ reviews }) {
     return (
         <div>
             <h1>Recently Posted</h1>
-            <section className="w-100">
+            <section>
                 {reviews.map((review) => {
                     return (
                         <article className="review" key={review._id}>
-                            <h2>{review.title}</h2>
-                            <p className="rating xl"> {review.rating} / 5</p>
-                            <p>{review.comment}</p>
-                            <p>Date of visit</p>
-                            <p>
-                                {moment
-                                    .utc(review.dateVisited)
-                                    .format("DD/MM/YYYY")}
-                            </p>
-                            <p>By {review.author}</p>
+                            <h3 id="title">{review.title}</h3>
+                            <section>
+                                <p>
+                                    By <b>{review.author}</b>
+                                </p>
+                                <p id="rating"> {review.rating} / 5 stars</p>
+                            </section>
+                            <p id="comment">{review.comment}</p>
+
+                            <section>
+                                <div>
+                                    <p>Date of visit:</p>
+                                    <b>
+                                        {moment
+                                            .utc(review.dateVisited)
+                                            .format("DD/MM/YYYY")}
+                                    </b>
+                                </div>
+                                <div>
+                                    <p>At:</p>
+                                    <b>{review.location}</b>
+                                </div>
+                            </section>
                         </article>
                     );
                 })}
