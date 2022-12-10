@@ -1,7 +1,8 @@
-import { useSession, getSession, signIn, signOut } from "next-auth/react";
-import Button from "react-bootstrap/Button";
+import axios from "axios";
+import { useSession } from "next-auth/react";
+import { redirect } from "next/dist/server/api-utils";
 
-export default function index() {
+export default function index(props) {
     const { data: session, status } = useSession();
     if (status === "authenticated") {
         return (
@@ -26,8 +27,17 @@ export default function index() {
     }
 }
 
-export const getServerSideProps = async (context) => {
-    return {
-        props: {},
-    };
-};
+export async function getServerSideProps(context) {
+    try {
+        const response = await axios.get(
+            "http://localhost:3000/api/user/requests"
+        );
+        const user = response.data;
+        return {
+            props: { user },
+        };
+    } catch (error) {
+        redirect("/");
+        console.log(error);
+    }
+}
