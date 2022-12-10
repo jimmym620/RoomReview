@@ -1,5 +1,4 @@
 import SessionedHomePage from "../components/SessionedHomePage";
-import axios from "axios";
 
 import { useSession } from "next-auth/react";
 import UnsessionedHomePage from "../components/UnsessionedHomePage";
