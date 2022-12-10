@@ -46,8 +46,10 @@ a {
 }
 
 main div {
+    text-align: center;
+
     h1 {
-        text-align: center;
+        // text-align: center;
         color: $color-dark;
         margin-bottom: 2rem;
     }

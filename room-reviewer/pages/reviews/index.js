@@ -35,6 +35,7 @@ export default function Index({ reviews }) {
                     );
                 })}
             </section>
+            <p>Want to add a review? Sign up to start posting</p>
         </div>
     );
 }

@@ -50,7 +50,7 @@ function NavigationBar() {
                                             signOut();
                                         }}
                                     >
-                                        Sign Out
+                                        Logout
                                     </Button>
                                 </div>
                             ) : (
@@ -60,7 +60,7 @@ function NavigationBar() {
                                             signIn();
                                         }}
                                     >
-                                        Sign In
+                                        Login
                                     </Button>
                                 </div>
                             )}
