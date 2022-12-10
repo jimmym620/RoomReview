@@ -3,10 +3,9 @@ import Review from "../../../mongoDB/models/reviewModel";
 
 export default async function handler(req, res) {
     const id = req.query.userId;
-    console.log(id);
     if (req.method === "GET") {
         await connectMongo();
-        await Review.find({ authorID: id }).then(function (err, foundReviews) {
+        await Review.find({ authorID: id }).then(function(err, foundReviews) {
             if (err) {
                 res.send(err);
             } else {
