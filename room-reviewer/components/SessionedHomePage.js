@@ -5,7 +5,7 @@ export default function SessionedHomePage({ userData }) {
     return (
         <div>
             <p>You are logged in</p>
-            <p>{userData.name}</p>
+            {/* <p>{userData.name}</p> */}
         </div>
     );
 }

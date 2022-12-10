@@ -10,9 +10,8 @@ export default async function handler(req, res) {
             if (err) {
                 res.send(err);
             } else res.send(foundReviews);
-        });
-        //non GET requests
+        }).clone();
     } else {
-        res.status(401).send("Not authorised");
+        res.status(401).send("Not authorised to POST");
     }
 }
