@@ -3,6 +3,7 @@ import Review from "../../../mongoDB/models/reviewModel";
 
 export default async function handler(req, res) {
     if (req.method === "POST") {
+        console.log(req.body);
         await connectMongo();
         await Review.create(
             {
@@ -16,9 +17,10 @@ export default async function handler(req, res) {
             },
             function (err) {
                 if (err) {
-                    res.status(err);
+                    res.send(err);
                 } else {
-                    res.status(200).redirect("/");
+                    res.status(200)
+                    .send({ message: "Sucessfully added review" });
                 }
             }
         );

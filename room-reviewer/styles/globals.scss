@@ -63,6 +63,11 @@ main div {
     margin: auto;
     width: 50%;
 
+    span {
+        color: red;
+        font-weight: 500;
+    }
+
     .submitBTN {
         margin: 1rem 0;
     }
@@ -73,22 +78,22 @@ main div {
     display: flex;
     justify-content: space-evenly;
     border-radius: 1rem;
-    padding: 0.75rem ;
+    padding: 0.75rem;
     margin: 0 auto;
     margin-bottom: 2rem;
     width: 40%;
 
-    #upvote-container{
+    #upvote-container {
         display: flex;
         width: 20%;
         justify-content: center;
         align-items: center;
         margin: auto 0;
     }
-    #main-container{
-        width:100%;
+    #main-container {
+        width: 100%;
     }
-    
+
     #title,
     #rating,
     p {
@@ -163,9 +168,9 @@ footer {
         width: 90%;
     }
 
-    .review{
+    .review {
         flex-direction: column;
-        section{
+        section {
             display: flex;
             flex-direction: column;
         }
