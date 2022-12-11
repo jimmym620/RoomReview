@@ -39,28 +39,36 @@ const callAPI = (id) => {
     console.log(id);
 };
 
-export async function getServerSideProps({ req }, context) {
+export async function getServerSideProps({ req }) {
     const session = await getSession({ req });
+    if (session) {
+        try {
+            const user = await fetch(
+                "http://localhost:3000/api/user/requests?" +
+                    new URLSearchParams({
+                        userId: session.user.id,
+                    })
+            );
+            const result = await user.json();
 
-    try {
-        const user = await fetch(
-            "http://localhost:3000/api/user/requests?" +
-                new URLSearchParams({
-                    userId: session.user.id,
-                })
-        );
-        const result = await user.json();
-
+            return {
+                props: { result },
+            };
+        } catch (error) {
+            console.log(error);
+            return {
+                // redirect: {
+                //     destination: "/",
+                //     statusCode: 307,
+                // },
+            };
+        }
+    } else {
         return {
-            props: { result },
-        };
-    } catch (error) {
-        console.log(error);
-        return {
-            // redirect: {
-            //     destination: "/",
-            //     statusCode: 307,
-            // },
+            redirect: {
+                destination: "/",
+                statusCode: 307,
+            },
         };
     }
 }

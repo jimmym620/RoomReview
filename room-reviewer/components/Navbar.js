@@ -20,21 +20,23 @@ function NavigationBar() {
                             <Nav.Link href="/reviews/submit">
                                 Add a Review
                             </Nav.Link>
-                            <NavDropdown
-                                title="Dashboard"
-                                id="basic-nav-dropdown"
-                            >
-                                <NavDropdown.Item href="/dashboard/">
-                                    Profile
-                                </NavDropdown.Item>
-                                <NavDropdown.Item href="/dashboard/settings">
-                                    Settings
-                                </NavDropdown.Item>
-                                {/* <NavDropdown.Divider /> */}
-                                {/* <NavDropdown.Item href="#">
+                            {session ? (
+                                <NavDropdown
+                                    title="Dashboard"
+                                    id="basic-nav-dropdown"
+                                >
+                                    <NavDropdown.Item href="/dashboard/">
+                                        Profile
+                                    </NavDropdown.Item>
+                                    <NavDropdown.Item href="/dashboard/settings">
+                                        Settings
+                                    </NavDropdown.Item>
+                                    {/* <NavDropdown.Divider /> */}
+                                    {/* <NavDropdown.Item href="#">
                                     Separated link
                                 </NavDropdown.Item> */}
-                            </NavDropdown>
+                                </NavDropdown>
+                            ) : null}
                         </Nav>
                         <div className="profile-container ">
                             {/* if user is authenticated, render sign in or out button*/}
