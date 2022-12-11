@@ -2,6 +2,7 @@ import connectMongo from "../../../mongoDB/connectDB";
 import Review from "../../../mongoDB/models/reviewModel";
 
 export default async function handler(req, res) {
+    const id = req.query.reviewId;
     if (req.method === "POST") {
         console.log(req.body);
         await connectMongo();
@@ -30,7 +31,7 @@ export default async function handler(req, res) {
         await connectMongo();
         await Review.find({}, function (error, foundReviews) {
             if (error) {
-                res.status(error).send(error);
+                res.send(error);
             } else {
                 if (foundReviews) {
                     res.send(foundReviews);
@@ -40,6 +41,15 @@ export default async function handler(req, res) {
     }
     if (req.method === "PATCH") {
         await connectMongo();
-        // await Review.find('')
+        await Review.updateOne({ _id: id }, { $set: req.body }).then(function (
+            err,
+            result
+        ) {
+            if (err) {
+                res.send(err);
+            }
+        });
+    } else {
+        res.status(401).send("Not authorised");
     }
 }

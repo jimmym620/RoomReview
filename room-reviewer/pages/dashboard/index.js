@@ -1,6 +1,6 @@
 import { useSession, getSession } from "next-auth/react";
 import Button from "react-bootstrap/Button";
-import ReviewModal from "../../components/ReviewModel";
+import ReviewModal from "../../components/ReviewModal";
 import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 
@@ -42,6 +42,7 @@ export default function index({ result }) {
                                 >
                                     <ReviewModal
                                         close={() => setShowModal(false)}
+                                        id={modalData._id}
                                         title={modalData.title}
                                         location={modalData.title}
                                         rating={modalData.rating}

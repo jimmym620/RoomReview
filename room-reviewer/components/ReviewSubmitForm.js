@@ -8,7 +8,6 @@ function ReviewSubmitForm() {
     const {
         register,
         handleSubmit,
-        watch,
         formState: { errors },
     } = useForm();
 
