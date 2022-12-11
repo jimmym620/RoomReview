@@ -1,13 +1,27 @@
 import { useSession, getSession } from "next-auth/react";
-import { redirect } from "next/dist/server/api-utils";
 import Button from "react-bootstrap/Button";
+import ReviewModal from "../../components/ReviewModel";
+import { useState } from "react";
+import Modal from "react-bootstrap/Modal";
 
 export default function index({ result }) {
     const { data: session, status } = useSession();
+    const [showModal, setShowModal] = useState(false);
+
+    const handleShowModal = () => {
+        // console.log("modal: " + showModal);
+        setShowModal(true);
+        console.log("show clicked");
+    };
+    const handleCloseModal = () => {
+        setShowModal(false);
+    };
+
     if (status === "authenticated") {
         return (
             <div>
                 <h1>Dashboard</h1>
+
                 <section id="dashboard">
                     <h2>Your profile</h2>
                     <div>
@@ -17,12 +31,20 @@ export default function index({ result }) {
                     <h2>Your written reviews</h2>
                     {result.map((review) => {
                         return (
-                            <article id="user-reviews-title">
+                            <article id="user-reviews-title" key={review._id}>
                                 <h3>{review.location}</h3>
+                                <Button onClick={handleShowModal}>
+                                    Edit review
+                                </Button>
+                                <Modal
+                                    show={showModal}
+                                    onHide={handleCloseModal}
+                                >
+                                    <ReviewModal close={handleCloseModal} />
+                                </Modal>
                             </article>
                         );
                     })}
-                    {/* <Button onClick={() => callAPI(props)}>call</Button> */}
                 </section>
             </div>
         );

@@ -19,8 +19,9 @@ export default async function handler(req, res) {
                 if (err) {
                     res.send(err);
                 } else {
-                    res.status(200)
-                    .send({ message: "Sucessfully added review" });
+                    res.status(200).send({
+                        message: "Sucessfully added review",
+                    });
                 }
             }
         );
@@ -36,5 +37,9 @@ export default async function handler(req, res) {
                 }
             }
         }).clone();
+    }
+    if (req.method === "PATCH") {
+        await connectMongo();
+        // await Review.find('')
     }
 }
