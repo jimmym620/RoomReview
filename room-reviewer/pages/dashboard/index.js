@@ -7,15 +7,7 @@ import Modal from "react-bootstrap/Modal";
 export default function index({ result }) {
     const { data: session, status } = useSession();
     const [showModal, setShowModal] = useState(false);
-
-    const handleShowModal = () => {
-        // console.log("modal: " + showModal);
-        setShowModal(true);
-        console.log("show clicked");
-    };
-    const handleCloseModal = () => {
-        setShowModal(false);
-    };
+    const [modalData, setModalData] = useState({});
 
     if (status === "authenticated") {
         return (
@@ -23,24 +15,39 @@ export default function index({ result }) {
                 <h1>Dashboard</h1>
 
                 <section id="dashboard">
-                    <h2>Your profile</h2>
+                    <h2>Profile</h2>
                     <div>
                         <p>Your reviews: {result.length}</p>
                         <p>Reviews liked by others:</p>
                     </div>
-                    <h2>Your written reviews</h2>
+                    <h2>Your reviews</h2>
                     {result.map((review) => {
                         return (
                             <article id="user-reviews-title" key={review._id}>
-                                <h3>{review.location}</h3>
-                                <Button onClick={handleShowModal}>
+                                <h3>
+                                    Your review for{" "}
+                                    <span>{review.location}</span>{" "}
+                                </h3>
+                                <Button
+                                    onClick={() => {
+                                        setShowModal(true);
+                                        setModalData(review);
+                                    }}
+                                >
                                     Edit review
                                 </Button>
                                 <Modal
                                     show={showModal}
-                                    onHide={handleCloseModal}
+                                    onHide={() => setShowModal(false)}
                                 >
-                                    <ReviewModal close={handleCloseModal} />
+                                    <ReviewModal
+                                        close={() => setShowModal(false)}
+                                        title={modalData.title}
+                                        location={modalData.title}
+                                        rating={modalData.rating}
+                                        dateVisited={modalData.dateVisited}
+                                        comment={modalData.comment}
+                                    />
                                 </Modal>
                             </article>
                         );
@@ -65,6 +72,7 @@ export async function getServerSideProps({ req }) {
     const session = await getSession({ req });
     if (session) {
         try {
+            // GET user info
             const user = await fetch(
                 "http://localhost:3000/api/user/requests?" +
                     new URLSearchParams({

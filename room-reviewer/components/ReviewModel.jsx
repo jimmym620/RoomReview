@@ -1,13 +1,15 @@
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
-function ReviewModal({ close }) {
+function ReviewModal({ close, title, location, rating, dataVisited, comment }) {
     return (
         <>
             <Modal.Header>
-                <Modal.Title>Edit review</Modal.Title>
+                <Modal.Title>Edit {title}</Modal.Title>
             </Modal.Header>
-            <Modal.Body>This is the body of the modal form</Modal.Body>
+            <Modal.Body>
+                <p>{comment}</p>
+            </Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={close}>
                     Close
