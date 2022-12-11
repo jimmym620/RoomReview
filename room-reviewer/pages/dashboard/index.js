@@ -1,11 +1,8 @@
-import {
-    useSession,
-    getSession,
-} from "next-auth/react";
+import { useSession, getSession } from "next-auth/react";
 import { redirect } from "next/dist/server/api-utils";
 import Button from "react-bootstrap/Button";
 
-export default function index(props) {
+export default function index({ result }) {
     const { data: session, status } = useSession();
     if (status === "authenticated") {
         return (
@@ -14,11 +11,18 @@ export default function index(props) {
                 <section id="dashboard">
                     <h2>Your profile</h2>
                     <div>
-                        <p>Your reviews: {props.result.length}</p>
+                        <p>Your reviews: {result.length}</p>
                         <p>Reviews liked by others:</p>
                     </div>
                     <h2>Your written reviews</h2>
-                    <Button onClick={() => callAPI(props)}>call</Button>
+                    {result.map((review) => {
+                        return (
+                            <article id="user-reviews-title">
+                                <h3>{review.location}</h3>
+                            </article>
+                        );
+                    })}
+                    {/* <Button onClick={() => callAPI(props)}>call</Button> */}
                 </section>
             </div>
         );
@@ -39,14 +43,16 @@ export async function getServerSideProps({ req }, context) {
     const session = await getSession({ req });
 
     try {
-        const user = await fetch("http://localhost:3000/api/user/requests?" + new URLSearchParams({
-            userId: session.user.id,
-        })
+        const user = await fetch(
+            "http://localhost:3000/api/user/requests?" +
+                new URLSearchParams({
+                    userId: session.user.id,
+                })
         );
-        const result = await user.json()
+        const result = await user.json();
 
         return {
-            props: {result}
+            props: { result },
         };
     } catch (error) {
         console.log(error);

@@ -1,4 +1,5 @@
 import moment from "moment";
+import Button from "react-bootstrap/Button";
 
 export default function Index({ reviews }) {
     return (
@@ -8,29 +9,34 @@ export default function Index({ reviews }) {
                 {reviews.map((review) => {
                     return (
                         <article className="review" key={review._id}>
-                            <h3 id="title">{review.title}</h3>
-                            <section>
-                                <p>
-                                    By <b>{review.author}</b>
-                                </p>
-                                <p id="rating"> {review.rating} / 5 stars</p>
-                            </section>
-                            <p id="comment">{review.comment}</p>
+                            <div id="main-container">
+                                <h3 id="title">{review.title}</h3>
+                                <section>
+                                    <p>
+                                        By <b>{review.author}</b>
+                                    </p>
+                                    <p id="rating">{review.rating} / 5 stars</p>
+                                    <div id="upvote-container">
+                                        <Button>Like</Button>
+                                    </div>
+                                </section>
+                                <p id="comment">{review.comment}</p>
 
-                            <section>
-                                <div>
-                                    <p>Date of visit:</p>
-                                    <b>
-                                        {moment
-                                            .utc(review.dateVisited)
-                                            .format("DD/MM/YYYY")}
-                                    </b>
-                                </div>
-                                <div>
-                                    <p>At:</p>
-                                    <b>{review.location}</b>
-                                </div>
-                            </section>
+                                <section>
+                                    <div>
+                                        <p>Date of visit:</p>
+                                        <b>
+                                            {moment
+                                                .utc(review.dateVisited)
+                                                .format("DD/MM/YYYY")}
+                                        </b>
+                                    </div>
+                                    <div>
+                                        <p>At:</p>
+                                        <b>{review.location}</b>
+                                    </div>
+                                </section>
+                            </div>
                         </article>
                     );
                 })}

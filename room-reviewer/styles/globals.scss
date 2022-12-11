@@ -70,11 +70,25 @@ main div {
 
 .review {
     border-style: solid;
+    display: flex;
+    justify-content: space-evenly;
     border-radius: 1rem;
-    padding: 0.5rem 0;
+    padding: 0.75rem ;
     margin: 0 auto;
     margin-bottom: 2rem;
     width: 40%;
+
+    #upvote-container{
+        display: flex;
+        width: 20%;
+        justify-content: center;
+        align-items: center;
+        margin: auto 0;
+    }
+    #main-container{
+        width:100%;
+    }
+    
     #title,
     #rating,
     p {
@@ -147,6 +161,14 @@ footer {
     .review,
     .reviewForm {
         width: 90%;
+    }
+
+    .review{
+        flex-direction: column;
+        section{
+            display: flex;
+            flex-direction: column;
+        }
     }
 
     #navigation {
