@@ -118,15 +118,9 @@ function ReviewModal({
                 >
                     Save Changes
                 </Button>
-                <Button onClick={() => showDate(dateVisited)}>SHow date</Button>
             </Modal.Footer>
         </>
     );
 }
-
-const showDate = (data) => {
-    const newDate = moment(data).format("YYYY-MM-DD");
-    console.log(newDate);
-};
 
 export default ReviewModal;
