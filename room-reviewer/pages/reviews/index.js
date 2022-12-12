@@ -46,11 +46,13 @@ export default function Index({ reviews }) {
     );
 }
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps() {
     try {
         const reviews = await fetch(
             "http://localhost:3000/api/reviews/requests"
-        ).then((res) => res.json());
+        ).then((res) => {
+            return res.json();
+        });
 
         return {
             props: { reviews },

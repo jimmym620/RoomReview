@@ -44,7 +44,7 @@ export default function index({ result }) {
                                         close={() => setShowModal(false)}
                                         id={modalData._id}
                                         title={modalData.title}
-                                        location={modalData.title}
+                                        location={modalData.location}
                                         rating={modalData.rating}
                                         dateVisited={modalData.dateVisited}
                                         comment={modalData.comment}
@@ -71,35 +71,21 @@ const callAPI = (id) => {
 
 export async function getServerSideProps({ req }) {
     const session = await getSession({ req });
-    if (session) {
-        try {
-            // GET user info
-            const user = await fetch(
-                "http://localhost:3000/api/user/requests?" +
-                    new URLSearchParams({
-                        userId: session.user.id,
-                    })
-            );
-            const result = await user.json();
 
-            return {
-                props: { result },
-            };
-        } catch (error) {
-            console.log(error);
-            return {
-                // redirect: {
-                //     destination: "/",
-                //     statusCode: 307,
-                // },
-            };
-        }
-    } else {
+    try {
+        // GET user info
+        const user = await fetch(
+            "http://localhost:3000/api/user/requests?" +
+                new URLSearchParams({
+                    userId: session.user.id,
+                })
+        );
+        const result = await user.json();
+
         return {
-            redirect: {
-                destination: "/",
-                statusCode: 307,
-            },
+            props: { result },
         };
+    } catch (error) {
+        console.log(error);
     }
 }

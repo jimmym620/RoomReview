@@ -2,7 +2,6 @@ import connectMongo from "../../../mongoDB/connectDB";
 import Review from "../../../mongoDB/models/reviewModel";
 
 export default async function handler(req, res) {
-    const id = req.query.reviewId;
     if (req.method === "POST") {
         console.log(req.body);
         await connectMongo();
@@ -18,38 +17,39 @@ export default async function handler(req, res) {
             },
             function (err) {
                 if (err) {
-                    res.send(err);
+                    return res.json(err);
                 } else {
-                    res.status(200).send({
-                        message: "Sucessfully added review",
-                    });
+                    return res
+                        .status(200)
+                        .send({ message: "Successfully created post" });
                 }
             }
         );
-    }
-    if (req.method === "GET") {
+    } else if (req.method === "GET") {
         await connectMongo();
         await Review.find({}, function (error, foundReviews) {
             if (error) {
-                res.send(error);
+                return res.json(error);
             } else {
                 if (foundReviews) {
-                    res.send(foundReviews);
+                    return res.status(200).send(foundReviews);
                 }
             }
         }).clone();
-    }
-    if (req.method === "PATCH") {
+    } else if (req.method === "PATCH") {
+        const id = req.query.reviewId;
         await connectMongo();
         await Review.updateOne({ _id: id }, { $set: req.body }).then(function (
             err,
             result
         ) {
             if (err) {
-                res.send(err);
+                return res.json(err);
+            } else {
+                return res.status(200).send({ message: "Review Edited" });
             }
         });
     } else {
-        res.status(401).send("Not authorised");
+        return res.json({ message: "Not authorised" });
     }
 }

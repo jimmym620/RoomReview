@@ -28,14 +28,16 @@ function ReviewModal({
                 },
                 body: JSON.stringify(data),
             };
-            const response = await fetch(
+            await fetch(
                 "http://localhost:3000/api/reviews/requests?" +
                     new URLSearchParams({ reviewId: id }),
                 requestOptions
-            );
-            const result = await response.json();
-            console.log(result);
-            router.push("/dashboard");
+            ).then((response) => {
+                if (response.ok) {
+                    close();
+                    router.push("/dashboard");
+                }
+            });
         } catch (error) {
             console.log(error);
         }
