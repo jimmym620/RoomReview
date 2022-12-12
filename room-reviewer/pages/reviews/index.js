@@ -26,9 +26,9 @@ export default function Index({ reviews }) {
                                     <div>
                                         <p>Date of visit:</p>
                                         <b>
-                                            {moment
-                                                .utc(review.dateVisited)
-                                                .format("DD/MM/YYYY")}
+                                            {moment(review.dateVisited).format(
+                                                "DD/MM/YYYY"
+                                            )}
                                         </b>
                                     </div>
                                     <div>

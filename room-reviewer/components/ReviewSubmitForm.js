@@ -81,6 +81,7 @@ function ReviewSubmitForm() {
                     <Form.Control
                         {...register("dateVisited", { required: true })}
                         type="date"
+                        defaultValue={"2022-01-01"}
                     />
                     {errors.dateVisited && <span>This field is required</span>}
                 </Form.Group>

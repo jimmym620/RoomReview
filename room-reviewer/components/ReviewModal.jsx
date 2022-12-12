@@ -2,6 +2,7 @@ import { Button, Form } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
+import moment from "moment";
 
 function ReviewModal({
     close,
@@ -87,7 +88,9 @@ function ReviewModal({
                         <Form.Control
                             {...register("dateVisited")}
                             type="date"
-                            defaultValue={dateVisited}
+                            defaultValue={moment(dateVisited).format(
+                                "YYYY-MM-DD"
+                            )}
                         />
                     </Form.Group>
                     <Form.Group className="mb-2" controlId="formBasicBody">
@@ -115,9 +118,15 @@ function ReviewModal({
                 >
                     Save Changes
                 </Button>
+                <Button onClick={() => showDate(dateVisited)}>SHow date</Button>
             </Modal.Footer>
         </>
     );
 }
+
+const showDate = (data) => {
+    const newDate = moment(data).format("YYYY-MM-DD");
+    console.log(newDate);
+};
 
 export default ReviewModal;
