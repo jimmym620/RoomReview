@@ -110,10 +110,8 @@ function ReviewModal({
                 </Button>
                 <Button
                     variant="primary"
-                    onClick={() => {
-                        close();
-                        //SUBMIT PATCH REQUEST
-                    }}
+                    onClick={handleSubmit(onSubmit)}
+                    //SUBMIT PATCH REQUEST
                 >
                     Save Changes
                 </Button>
