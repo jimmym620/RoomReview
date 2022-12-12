@@ -103,7 +103,7 @@ function ReviewModal({
                             defaultValue={comment}
                             rows="3"
                         ></textarea>
-                        <input className="submitBTN" type="submit" />
+                        <Button className="submitBTN" type="submit">Submit</Button>
                     </Form.Group>
                 </Form>
             </Modal.Body>

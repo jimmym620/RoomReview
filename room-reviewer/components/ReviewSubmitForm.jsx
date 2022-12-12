@@ -1,4 +1,4 @@
-import Form from "react-bootstrap/Form";
+import {Form, Button} from "react-bootstrap";
 import { useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
@@ -25,7 +25,7 @@ function ReviewSubmitForm() {
                 requestOptions
             );
             const result = await response.json();
-            console.log(result);
+            // console.log(result);
             router.push("/reviews");
         } catch (error) {
             console.log(error);
@@ -94,7 +94,7 @@ function ReviewSubmitForm() {
                         {...register("comment")}
                         rows="3"
                     ></textarea>
-                    <input className="submitBTN" type="submit" />
+                    <Button className="submitBTN" type="submit">Submit</Button>
                 </Form.Group>
             </Form>
         </div>
