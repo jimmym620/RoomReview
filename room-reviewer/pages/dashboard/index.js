@@ -45,7 +45,7 @@ export default function index({ result }) {
                                             deleteReview(review._id);
                                             router.push("/dashboard");
                                         } catch (error) {
-                                            console.log(error);
+                                            return console.log(error);
                                         }
                                     }}
                                 >
@@ -94,7 +94,7 @@ const deleteReview = async (id) => {
             requestOptions
         );
     } catch (error) {
-        console.log(error);
+        return console.log(error);
     }
 };
 
@@ -115,6 +115,6 @@ export async function getServerSideProps({ req }) {
             props: { result },
         };
     } catch (error) {
-        console.log(error);
+        return console.log(error);
     }
 }

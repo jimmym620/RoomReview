@@ -83,7 +83,7 @@ const likePost = async (reviewId, userId) => {
         );
         window.location.reload();
     } catch (error) {
-        console.log(error);
+        return console.log(error);
     }
 };
 
@@ -101,6 +101,6 @@ export async function getServerSideProps(context) {
             },
         };
     } catch (error) {
-        console.log(error);
+        return console.log(error);
     }
 }

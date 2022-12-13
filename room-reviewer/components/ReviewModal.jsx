@@ -40,7 +40,7 @@ function ReviewModal({
                 }
             });
         } catch (error) {
-            console.log(error);
+            return console.log(error);
         }
     };
 
@@ -103,7 +103,9 @@ function ReviewModal({
                             defaultValue={comment}
                             rows="3"
                         ></textarea>
-                        <Button className="submitBTN" type="submit">Submit</Button>
+                        <Button className="submitBTN" type="submit">
+                            Submit
+                        </Button>
                     </Form.Group>
                 </Form>
             </Modal.Body>
