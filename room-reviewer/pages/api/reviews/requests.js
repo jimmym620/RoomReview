@@ -17,7 +17,7 @@ export default async function handler(req, res) {
             },
             function (err) {
                 if (err) {
-                    return res.json(err);
+                    return res.send(err);
                 } else {
                     return res
                         .status(200)
@@ -29,7 +29,7 @@ export default async function handler(req, res) {
         await connectMongo();
         await Review.find({}, function (error, foundReviews) {
             if (error) {
-                return res.json(error);
+                return res.send(error);
             } else {
                 if (foundReviews) {
                     return res.status(200).send(foundReviews);
@@ -43,7 +43,7 @@ export default async function handler(req, res) {
             result
         ) {
             if (err) {
-                return res.json(err);
+                return res.send(err);
             } else {
                 return res
                     .status(200)
@@ -55,12 +55,12 @@ export default async function handler(req, res) {
         await connectMongo();
         await Review.deleteOne({ _id: id }).then(function (err) {
             if (err) {
-                return res.json(err);
+                return res.send(err);
             } else {
                 return res.status(200).send({ message: "Delete Successful" });
             }
         });
     } else {
-        return res.status(403).json({ message: "Not authorised" });
+        return res.status(500).end();
     }
 }

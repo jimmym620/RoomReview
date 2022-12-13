@@ -21,11 +21,13 @@ export default async function handler(req, res) {
                 if (err) {
                     return res.send(err);
                 } else {
-                    return res.status(200);
+                    return res.status(200).send("Liked");
                 }
             });
         } catch (error) {
-            console.log(error);
+            return res.send(error);
         }
+    } else {
+        return res.end("Not authorised");
     }
 }

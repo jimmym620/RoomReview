@@ -7,7 +7,7 @@ export default async function handler(req, res) {
         await connectMongo();
         await Review.find({ authorID: id }).then(function (err, foundReviews) {
             if (err) {
-                return res.json(err);
+                return res.send(err);
             } else {
                 if (foundReviews) {
                     return res.status(200).send(foundReviews);
@@ -17,6 +17,6 @@ export default async function handler(req, res) {
 
         //non GET requests
     } else {
-        return res.json({ message: "Not authorised" });
+        return res.status(500).end();
     }
 }
