@@ -9,16 +9,23 @@ export default async function handler(req, res) {
 
     if (req.method === "PATCH") {
         await connectMongo();
-        await Review.findOneAndUpdate(
-            { _id: reviewId },
-            { $addToSet: { upvotedBy: uid } }
-        ).then(function (err) {
-            if (err) {
-                return res.json(err);
+        try {
+            const review = await Review.findOne({ _id: reviewId });
+            if (review.upvotedBy.includes(uid)) {
+                const index = review.upvotedBy.indexOf(uid);
+                review.upvotedBy.splice(index, 1);
             } else {
-                console.log("upvoted");
-                return res.status(200);
+                review.upvotedBy.push(uid);
             }
-        });
+            await review.save(function (err) {
+                if (err) {
+                    return res.send(err);
+                } else {
+                    return res.status(200);
+                }
+            });
+        } catch (error) {
+            console.log(error);
+        }
     }
 }

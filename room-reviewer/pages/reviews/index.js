@@ -9,7 +9,6 @@ export default function Index({ reviews, session }) {
         <div>
             <h1>Recently Posted</h1>
 
-            <p>{session.user.id}</p>
             <section>
                 {reviews.map((review) => {
                     return (
@@ -82,6 +81,7 @@ const likePost = async (reviewId, userId) => {
             "http://localhost:3000/api/reviews/" + reviewId,
             requestOptions
         );
+        window.location.reload();
     } catch (error) {
         console.log(error);
     }
@@ -89,11 +89,10 @@ const likePost = async (reviewId, userId) => {
 
 export async function getServerSideProps(context) {
     try {
-        const reviews = await fetch(
+        const response = await fetch(
             "http://localhost:3000/api/reviews/requests"
-        ).then((res) => {
-            return res.json();
-        });
+        );
+        const reviews = await response.json();
 
         return {
             props: {
