@@ -1,12 +1,15 @@
 import moment from "moment";
 import Button from "react-bootstrap/Button";
-import { useSession } from "next-auth/react";
+import { getSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
-export default function Index({ reviews }) {
-    const { data: session, status } = useSession();
+export default function Index({ reviews, session }) {
+    const router = useRouter();
     return (
         <div>
             <h1>Recently Posted</h1>
+
+            <p>{session.user.id}</p>
             <section>
                 {reviews.map((review) => {
                     return (
@@ -18,19 +21,26 @@ export default function Index({ reviews }) {
                                         By <b>{review.author}</b>
                                     </p>
                                     <p id="rating">{review.rating} / 5 stars</p>
-                                    <div id="upvote-container">
-                                        <Button
-                                            onClick={() => {
-                                                likePost(
-                                                    review._id,
+                                    {session ? (
+                                        <div id="upvote-container">
+                                            <Button
+                                                onClick={() => {
+                                                    likePost(
+                                                        review._id,
+                                                        session.user.id
+                                                    );
+                                                    router.push("/reviews");
+                                                }}
+                                            >
+                                                {review.upvotedBy.includes(
                                                     session.user.id
-                                                );
-                                            }}
-                                        >
-                                            Like
-                                        </Button>
-                                        <p>{review.upvotedBy.length}</p>
-                                    </div>
+                                                )
+                                                    ? "Unlike"
+                                                    : "Like"}
+                                            </Button>
+                                            <p>{review.upvotedBy.length}</p>
+                                        </div>
+                                    ) : null}
                                 </section>
                                 <p id="comment">{review.comment}</p>
 
@@ -59,7 +69,7 @@ export default function Index({ reviews }) {
 }
 
 const likePost = async (reviewId, userId) => {
-    // console.log(reviewId, userId);
+    console.log(userId);
     try {
         const requestOptions = {
             method: "PATCH",
@@ -77,7 +87,7 @@ const likePost = async (reviewId, userId) => {
     }
 };
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
     try {
         const reviews = await fetch(
             "http://localhost:3000/api/reviews/requests"
@@ -86,7 +96,10 @@ export async function getServerSideProps() {
         });
 
         return {
-            props: { reviews },
+            props: {
+                session: await getSession(context),
+                reviews,
+            },
         };
     } catch (error) {
         console.log(error);
