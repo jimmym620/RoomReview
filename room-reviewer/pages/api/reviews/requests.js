@@ -2,6 +2,7 @@ import connectMongo from "../../../mongoDB/connectDB";
 import Review from "../../../mongoDB/models/reviewModel";
 
 export default async function handler(req, res) {
+    const id = req.query.reviewId;
     if (req.method === "POST") {
         console.log(req.body);
         await connectMongo();
@@ -37,7 +38,6 @@ export default async function handler(req, res) {
             }
         }).clone();
     } else if (req.method === "PATCH") {
-        const id = req.query.reviewId;
         await connectMongo();
         await Review.updateOne({ _id: id }, { $set: req.body }).then(function (
             err,
@@ -46,10 +46,22 @@ export default async function handler(req, res) {
             if (err) {
                 return res.json(err);
             } else {
-                return res.status(200).send({ message: "Review Edited" });
+                return res
+                    .status(200)
+                    .send({ message: "Review Edited" })
+                    .redirect("/dashboard");
+            }
+        });
+    } else if (req.method === "DELETE") {
+        await connectMongo();
+        await Review.deleteOne({ _id: id }).then(function (err) {
+            if (err) {
+                return res.json(err);
+            } else {
+                return res.status(200).send({ message: "Delete Successful" });
             }
         });
     } else {
-        return res.json({ message: "Not authorised" });
+        return res.status(403).json({ message: "Not authorised" });
     }
 }

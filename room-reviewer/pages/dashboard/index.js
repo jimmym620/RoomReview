@@ -3,11 +3,13 @@ import Button from "react-bootstrap/Button";
 import ReviewModal from "../../components/ReviewModal";
 import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
+import { useRouter } from "next/router";
 
 export default function index({ result }) {
     const { data: session, status } = useSession();
     const [showModal, setShowModal] = useState(false);
     const [modalData, setModalData] = useState({});
+    const router = useRouter();
 
     if (status === "authenticated") {
         return (
@@ -35,6 +37,19 @@ export default function index({ result }) {
                                     }}
                                 >
                                     Edit review
+                                </Button>
+                                <Button
+                                    variant="danger"
+                                    onClick={() => {
+                                        try {
+                                            deleteReview(review._id);
+                                            router.push("/dashboard");
+                                        } catch (error) {
+                                            console.log(error);
+                                        }
+                                    }}
+                                >
+                                    Delete
                                 </Button>
                                 <Modal
                                     show={showModal}
@@ -65,8 +80,22 @@ export default function index({ result }) {
     }
 }
 
-const callAPI = (id) => {
-    console.log(id);
+const deleteReview = async (id) => {
+    try {
+        const requestOptions = {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        };
+        await fetch(
+            "http://localhost:3000/api/reviews/requests?" +
+                new URLSearchParams({ reviewId: id }),
+            requestOptions
+        );
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 export async function getServerSideProps({ req }) {
