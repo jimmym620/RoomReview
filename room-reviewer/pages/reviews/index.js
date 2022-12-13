@@ -1,7 +1,9 @@
 import moment from "moment";
 import Button from "react-bootstrap/Button";
+import { useSession } from "next-auth/react";
 
 export default function Index({ reviews }) {
+    const { data: session, status } = useSession();
     return (
         <div>
             <h1>Recently Posted</h1>
@@ -17,7 +19,17 @@ export default function Index({ reviews }) {
                                     </p>
                                     <p id="rating">{review.rating} / 5 stars</p>
                                     <div id="upvote-container">
-                                        <Button>Like</Button>
+                                        <Button
+                                            onClick={() => {
+                                                likePost(
+                                                    review._id,
+                                                    session.user.id
+                                                );
+                                            }}
+                                        >
+                                            Like
+                                        </Button>
+                                        <p>{review.upvotedBy.length}</p>
                                     </div>
                                 </section>
                                 <p id="comment">{review.comment}</p>
@@ -45,6 +57,25 @@ export default function Index({ reviews }) {
         </div>
     );
 }
+
+const likePost = async (reviewId, userId) => {
+    // console.log(reviewId, userId);
+    try {
+        const requestOptions = {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ uid: userId }),
+        };
+        await fetch(
+            "http://localhost:3000/api/reviews/" + reviewId,
+            requestOptions
+        );
+    } catch (error) {
+        console.log(error);
+    }
+};
 
 export async function getServerSideProps() {
     try {

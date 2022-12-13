@@ -4,7 +4,6 @@ import Review from "../../../mongoDB/models/reviewModel";
 export default async function handler(req, res) {
     const id = req.query.reviewId;
     if (req.method === "POST") {
-        console.log(req.body);
         await connectMongo();
         await Review.create(
             {

@@ -28,7 +28,7 @@ export default function index({ result }) {
                             <article id="user-reviews-title" key={review._id}>
                                 <h3>
                                     Your review for{" "}
-                                    <span>{review.location}</span>{" "}
+                                    <span>{review.location}</span>
                                 </h3>
                                 <Button
                                     onClick={() => {
