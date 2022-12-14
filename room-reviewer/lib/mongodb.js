@@ -5,8 +5,8 @@ if (!process.env.MONGO_URI) {
     throw new Error('Invalid/Missing environment variable: "MONGO_URI"');
 }
 
-// const uri = process.env.MONGO_URI;
-const uri = "mongodb://localhost:27017/RoomReviewer";
+const uri = process.env.MONGO_URI + "/RoomReviewer";
+// const uri = "mongodb://localhost:27017/RoomReviewer";
 const options = {};
 
 let client;

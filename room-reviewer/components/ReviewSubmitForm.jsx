@@ -20,13 +20,12 @@ function ReviewSubmitForm() {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(data),
             };
-            const response = await fetch(
+            await fetch(
                 "http://localhost:3000/api/reviews/requests",
                 requestOptions
             );
-            const result = await response.json();
-            // console.log(result);
             router.push("/reviews");
+            return;
         } catch (error) {
             return console.log(error);
         }

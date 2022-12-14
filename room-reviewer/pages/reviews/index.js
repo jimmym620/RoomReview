@@ -71,22 +71,20 @@ export default function Index({ reviews, session }) {
 }
 
 const likePost = async (reviewId, userId) => {
-    console.log(userId);
-    try {
-        const requestOptions = {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ uid: userId }),
-        };
-        await fetch(
-            "http://localhost:3000/api/reviews/" + reviewId,
-            requestOptions
-        );
-    } catch (error) {
-        return console.log(error);
-    }
+    const requestOptions = {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ uid: userId }),
+    };
+
+    return await fetch(
+        "http://localhost:3000/api/reviews/" + reviewId,
+        requestOptions
+    ).catch((err) => {
+        return console.log(err);
+    });
 };
 
 export async function getServerSideProps(context) {

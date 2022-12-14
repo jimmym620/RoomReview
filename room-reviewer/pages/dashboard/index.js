@@ -5,15 +5,13 @@ import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import { useRouter } from "next/router";
 
-export default function Index({ result }) {
+export default function Index({ result, session }) {
     const { data: status } = useSession();
     const [showModal, setShowModal] = useState(false);
     const [modalData, setModalData] = useState({});
     const router = useRouter();
-    // const [numOfLikes, setNumOfLikes] = useState(0);
-    let numOfLikes = 0;
 
-    if (status === "authenticated") {
+    if (session) {
         return (
             <div>
                 <h1>Dashboard</h1>
@@ -26,7 +24,6 @@ export default function Index({ result }) {
                     </div>
                     <h2>Your reviews</h2>
                     {result.map((review) => {
-                        numOfLikes += review.upvotes;
                         return (
                             <article id="user-reviews-title" key={review._id}>
                                 <h3>
@@ -121,7 +118,7 @@ export async function getServerSideProps({ req }) {
             const result = await user.json();
 
             return {
-                props: { result },
+                props: { result, session },
             };
         } catch (error) {
             return console.log(error);

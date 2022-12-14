@@ -6,9 +6,9 @@ import Review from "../../../mongoDB/models/reviewModel";
 export default async function handler(req, res) {
     const { reviewId } = req.query;
     const { uid } = req.body;
+    await connectMongo();
 
     if (req.method === "PATCH") {
-        await connectMongo();
         try {
             const review = await Review.findOne({ _id: reviewId });
             if (review.upvotedBy.includes(uid)) {

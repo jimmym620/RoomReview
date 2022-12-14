@@ -3,8 +3,8 @@ import Review from "../../../mongoDB/models/reviewModel";
 
 export default async function handler(req, res) {
     const id = req.query.reviewId;
+    await connectMongo();
     if (req.method === "POST") {
-        await connectMongo();
         await Review.create(
             {
                 title: req.body.title,
@@ -26,7 +26,6 @@ export default async function handler(req, res) {
             }
         );
     } else if (req.method === "GET") {
-        await connectMongo();
         await Review.find({}, function (error, foundReviews) {
             if (error) {
                 return res.send(error);
@@ -37,7 +36,6 @@ export default async function handler(req, res) {
             }
         }).clone();
     } else if (req.method === "PATCH") {
-        await connectMongo();
         await Review.updateOne({ _id: id }, { $set: req.body }).then(function (
             err,
             result
@@ -52,7 +50,6 @@ export default async function handler(req, res) {
             }
         });
     } else if (req.method === "DELETE") {
-        await connectMongo();
         await Review.deleteOne({ _id: id }).then(function (err) {
             if (err) {
                 return res.send(err);
