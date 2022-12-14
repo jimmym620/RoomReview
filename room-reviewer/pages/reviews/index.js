@@ -1,9 +1,9 @@
 import moment from "moment";
 import Button from "react-bootstrap/Button";
-import { getSession, useSession } from "next-auth/react";
+import { getSession } from "next-auth/react";
+import { server } from "../../config/";
 
-export default function Index({ reviews }) {
-    const { data: session } = useSession();
+export default function Index({ reviews, session }) {
     return (
         <div>
             <h1>Recently Posted</h1>
