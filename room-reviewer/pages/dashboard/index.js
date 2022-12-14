@@ -5,8 +5,8 @@ import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import { useRouter } from "next/router";
 
-export default function index({ result }) {
-    const { data: session, status } = useSession();
+export default function Index({ result }) {
+    const { data: status } = useSession();
     const [showModal, setShowModal] = useState(false);
     const [modalData, setModalData] = useState({});
     const router = useRouter();

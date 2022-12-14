@@ -2,7 +2,7 @@ import SessionedHomePage from "../components/SessionedHomePage";
 
 import { useSession } from "next-auth/react";
 import UnsessionedHomePage from "../components/UnsessionedHomePage";
-export default function index() {
+export default function Index() {
     const { data: session } = useSession();
 
     return (
