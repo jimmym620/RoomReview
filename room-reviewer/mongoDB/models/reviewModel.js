@@ -7,7 +7,6 @@ const reviewSchema = new Schema({
     comment: { type: String },
     location: { type: String, required: true },
     upvotedBy: [String],
-    upvotes: Number,
     dateVisited: Date,
     author: String,
     authorID: String,

@@ -49,7 +49,7 @@ function NavigationBar() {
                                     />
                                     <Button
                                         onClick={() => {
-                                            signOut();
+                                            signOut({ callbackUrl: "/" });
                                         }}
                                     >
                                         Logout

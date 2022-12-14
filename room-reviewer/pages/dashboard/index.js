@@ -10,6 +10,8 @@ export default function index({ result }) {
     const [showModal, setShowModal] = useState(false);
     const [modalData, setModalData] = useState({});
     const router = useRouter();
+    // const [numOfLikes, setNumOfLikes] = useState(0);
+    let numOfLikes = 0;
 
     if (status === "authenticated") {
         return (
@@ -17,18 +19,19 @@ export default function index({ result }) {
                 <h1>Dashboard</h1>
 
                 <section id="dashboard">
-                    <h2>Profile</h2>
-                    <div>
+                    <div id="stats">
+                        <h2>Profile Stats</h2>
                         <p>Your reviews: {result.length}</p>
-                        <p>Reviews liked by others:</p>
+                        <p>Reviews liked by others: {countLikes(result)}</p>
                     </div>
                     <h2>Your reviews</h2>
                     {result.map((review) => {
+                        numOfLikes += review.upvotes;
                         return (
                             <article id="user-reviews-title" key={review._id}>
                                 <h3>
-                                    Your review for{" "}
-                                    <span>{review.location}</span>
+                                    Hotel Name:
+                                    <span> {review.location}</span>
                                 </h3>
                                 <Button
                                     onClick={() => {
@@ -80,6 +83,12 @@ export default function index({ result }) {
     }
 }
 
+const countLikes = (result) => {
+    let numLikes = 0;
+    result.forEach((review) => (numLikes += review.upvotedBy.length));
+    return numLikes;
+};
+
 const deleteReview = async (id) => {
     try {
         const requestOptions = {
@@ -100,21 +109,22 @@ const deleteReview = async (id) => {
 
 export async function getServerSideProps({ req }) {
     const session = await getSession({ req });
+    if (session) {
+        try {
+            // GET user info
+            const user = await fetch(
+                "http://localhost:3000/api/user/requests?" +
+                    new URLSearchParams({
+                        userId: session.user.id,
+                    })
+            );
+            const result = await user.json();
 
-    try {
-        // GET user info
-        const user = await fetch(
-            "http://localhost:3000/api/user/requests?" +
-                new URLSearchParams({
-                    userId: session.user.id,
-                })
-        );
-        const result = await user.json();
-
-        return {
-            props: { result },
-        };
-    } catch (error) {
-        return console.log(error);
+            return {
+                props: { result },
+            };
+        } catch (error) {
+            return console.log(error);
+        }
     }
 }

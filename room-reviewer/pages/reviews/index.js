@@ -20,26 +20,29 @@ export default function Index({ reviews, session }) {
                                         By <b>{review.author}</b>
                                     </p>
                                     <p id="rating">{review.rating} / 5 stars</p>
-                                    {session ? (
-                                        <div id="upvote-container">
-                                            <Button
-                                                onClick={() => {
-                                                    likePost(
-                                                        review._id,
+
+                                    {session ? ( // IF session exists
+                                        review.authorID !== session.user.id ? ( //IF the post author isn't the the current session user
+                                            <div id="upvote-container">
+                                                <Button
+                                                    onClick={() => {
+                                                        likePost(
+                                                            review._id,
+                                                            session.user.id
+                                                        );
+                                                        router.push("/reviews");
+                                                    }}
+                                                >
+                                                    {review.upvotedBy.includes(
                                                         session.user.id
-                                                    );
-                                                    router.push("/reviews");
-                                                }}
-                                            >
-                                                {review.upvotedBy.includes(
-                                                    session.user.id
-                                                )
-                                                    ? "Unlike"
-                                                    : "Like"}
-                                            </Button>
-                                            <p>{review.upvotedBy.length}</p>
-                                        </div>
+                                                    )
+                                                        ? "Unlike"
+                                                        : "Like"}
+                                                </Button>
+                                            </div>
+                                        ) : null
                                     ) : null}
+                                    <p>{review.upvotedBy.length}</p>
                                 </section>
                                 <p id="comment">{review.comment}</p>
 
@@ -81,7 +84,6 @@ const likePost = async (reviewId, userId) => {
             "http://localhost:3000/api/reviews/" + reviewId,
             requestOptions
         );
-        window.location.reload();
     } catch (error) {
         return console.log(error);
     }
