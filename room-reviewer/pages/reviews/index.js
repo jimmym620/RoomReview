@@ -2,6 +2,7 @@ import moment from "moment";
 import Button from "react-bootstrap/Button";
 import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { server } from "../../config/";
 
 export default function Index({ reviews, session }) {
     const router = useRouter();
@@ -78,7 +79,7 @@ const likePost = async (reviewId, userId) => {
         body: JSON.stringify({ uid: userId }),
     };
 
-    await fetch("http://localhost:3000/api/reviews/" + reviewId, requestOptions)
+    await fetch(`${server}/api/reviews/` + reviewId, requestOptions)
         .then(() => {
             window.location.reload();
         })
@@ -96,7 +97,7 @@ export async function getServerSideProps(context) {
     };
     try {
         const response = await fetch(
-            "http://localhost:3000/api/reviews/requests",
+            `${server}/api/reviews/requests`,
             requestOptions
         );
         const reviews = await response.json();

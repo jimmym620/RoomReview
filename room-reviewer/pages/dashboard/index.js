@@ -4,6 +4,7 @@ import ReviewModal from "../../components/ReviewModal";
 import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import { useRouter } from "next/router";
+import { server } from "../../config";
 
 export default function Index({ result, session }) {
     const { data: status } = useSession();
@@ -95,7 +96,7 @@ const deleteReview = async (id) => {
             },
         };
         await fetch(
-            "http://localhost:3000/api/reviews/requests?" +
+            `${server}/api/reviews/requests?` +
                 new URLSearchParams({ reviewId: id }),
             requestOptions
         );
@@ -110,7 +111,7 @@ export async function getServerSideProps({ req }) {
         try {
             // GET user info
             const user = await fetch(
-                "http://localhost:3000/api/user/requests?" +
+                `${server}/api/user/requests?` +
                     new URLSearchParams({
                         userId: session.user.id,
                     })
