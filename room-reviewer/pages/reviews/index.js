@@ -30,7 +30,6 @@ export default function Index({ reviews, session }) {
                                                             review._id,
                                                             session.user.id
                                                         );
-                                                        router.push("/reviews");
                                                     }}
                                                 >
                                                     {review.upvotedBy.includes(
@@ -79,18 +78,26 @@ const likePost = async (reviewId, userId) => {
         body: JSON.stringify({ uid: userId }),
     };
 
-    return await fetch(
-        "http://localhost:3000/api/reviews/" + reviewId,
-        requestOptions
-    ).catch((err) => {
-        return console.log(err);
-    });
+    await fetch("http://localhost:3000/api/reviews/" + reviewId, requestOptions)
+        .then(() => {
+            window.location.reload();
+        })
+        .catch((err) => {
+            return console.log(err);
+        });
 };
 
 export async function getServerSideProps(context) {
+    const requestOptions = {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    };
     try {
         const response = await fetch(
-            "http://localhost:3000/api/reviews/requests"
+            "http://localhost:3000/api/reviews/requests",
+            requestOptions
         );
         const reviews = await response.json();
 

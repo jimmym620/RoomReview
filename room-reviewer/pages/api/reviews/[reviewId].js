@@ -6,9 +6,8 @@ import Review from "../../../mongoDB/models/reviewModel";
 export default async function handler(req, res) {
     const { reviewId } = req.query;
     const { uid } = req.body;
-    await connectMongo();
-
     if (req.method === "PATCH") {
+        await connectMongo();
         try {
             const review = await Review.findOne({ _id: reviewId });
             if (review.upvotedBy.includes(uid)) {
@@ -19,15 +18,15 @@ export default async function handler(req, res) {
             }
             await review.save(function (err) {
                 if (err) {
-                    return res.send(err);
+                    return res.send({ err });
                 } else {
-                    return res.status(200).send("Liked");
+                    return res.status(200).send({});
                 }
             });
         } catch (error) {
-            return res.send(error);
+            return res.send({ error });
         }
     } else {
-        return res.end("Not authorised");
+        return res.status(405).end();
     }
 }
