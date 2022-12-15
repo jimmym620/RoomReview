@@ -96,7 +96,8 @@ const deleteReview = async (id) => {
             },
         };
         await fetch(
-            `${server}/api/reviews/requests?` +
+            process.env.SITE_URL +
+                "/api/reviews/requests?" +
                 new URLSearchParams({ reviewId: id }),
             requestOptions
         );
@@ -111,7 +112,8 @@ export async function getServerSideProps({ req }) {
         try {
             // GET user info
             const user = await fetch(
-                `${server}/api/user/requests?` +
+                process.env.SITE_URL +
+                    "/api/user/requests?" +
                     new URLSearchParams({
                         userId: session.user.id,
                     })
