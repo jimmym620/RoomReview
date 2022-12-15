@@ -4,6 +4,7 @@ import { SessionProvider } from "next-auth/react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Layout from "../components/Layout";
 import "../styles/globals.scss";
+
 const MyApp = ({ Component, pageProps, session }) => {
     return (
         <SSRProvider>

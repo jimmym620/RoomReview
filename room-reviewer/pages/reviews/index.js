@@ -95,7 +95,7 @@ export async function getServerSideProps(context) {
     };
     try {
         const response = await fetch(
-            `${server}/api/reviews/requests`,
+            process.env.SITE_URL + "/api/reviews/requests",
             requestOptions
         );
         const reviews = await response.json();

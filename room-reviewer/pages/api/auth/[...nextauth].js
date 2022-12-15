@@ -11,18 +11,11 @@ export const authOptions = {
         GoogleProvider({
             clientId: process.env.G_CLIENT_ID,
             clientSecret: process.env.G_CLIENT_SECRET,
-            authorization: {
-                params: {
-                    prompt: "consent",
-                    access_type: "offline",
-                    response_type: "code",
-                },
-            },
         }),
         // ...add more providers here
     ],
 
-    secret: process.env.JWT_SECRET,
+    secret: process.env.NEXT_PUBLIC_SECRET,
     adapter: MongoDBAdapter(clientPromise),
     session: {
         maxAge: 60 * 60 * 24 * 2, // 2 days

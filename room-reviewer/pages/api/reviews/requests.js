@@ -26,12 +26,13 @@ export default async function handler(req, res) {
             }
         );
     } else if (req.method === "GET") {
+        await connectMongo();
         await Review.find({}, function (error, foundReviews) {
             if (error) {
                 return res.send(error);
             } else {
                 if (foundReviews) {
-                    return res.status(200).send(foundReviews);
+                    return res.send(foundReviews).status(200);
                 }
             }
         }).clone();
