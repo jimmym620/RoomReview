@@ -32,7 +32,7 @@ export default async function handler(req, res) {
                 return res.send(error);
             } else {
                 if (foundReviews) {
-                    return res.send(foundReviews).status(200);
+                    return res.status(200).send(foundReviews);
                 }
             }
         }).clone();

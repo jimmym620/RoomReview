@@ -3,7 +3,6 @@ import Modal from "react-bootstrap/Modal";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import moment from "moment";
-import { server } from "../config";
 
 function ReviewModal({
     close,
@@ -31,7 +30,8 @@ function ReviewModal({
                 body: JSON.stringify(data),
             };
             await fetch(
-                `${server}/api/reviews/requests?` +
+                process.env.SITE_URL +
+                    "/api/reviews/requests?" +
                     new URLSearchParams({ reviewId: id }),
                 requestOptions
             ).then((response) => {

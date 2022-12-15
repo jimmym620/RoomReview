@@ -1,9 +1,9 @@
 import moment from "moment";
 import Button from "react-bootstrap/Button";
-import { getSession } from "next-auth/react";
-import { server } from "../../config/";
+import { getSession, useSession } from "next-auth/react";
 
-export default function Index({ reviews, session }) {
+export default function Index({ reviews }) {
+    const { data: session } = useSession();
     return (
         <div>
             <h1>Recently Posted</h1>
@@ -77,7 +77,10 @@ const likePost = async (reviewId, userId) => {
         body: JSON.stringify({ uid: userId }),
     };
 
-    await fetch(`${server}/api/reviews/` + reviewId, requestOptions)
+    await fetch(
+        process.env.SITE_URL + "/api/reviews/" + reviewId,
+        requestOptions
+    )
         .then(() => {
             window.location.reload();
         })
@@ -106,7 +109,6 @@ export async function getServerSideProps(context) {
 
         return {
             props: {
-                session: await getSession(context),
                 reviews,
             },
         };

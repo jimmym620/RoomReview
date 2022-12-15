@@ -4,7 +4,6 @@ import ReviewModal from "../../components/ReviewModal";
 import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import { useRouter } from "next/router";
-import { server } from "../../config";
 
 export default function Index({ result, session }) {
     const { data: status } = useSession();
