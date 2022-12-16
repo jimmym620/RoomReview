@@ -1,17 +1,15 @@
 import moment from "moment";
 import Button from "react-bootstrap/Button";
 import { getSession, useSession } from "next-auth/react";
-import Review from "../../mongoDB/models/reviewModel";
-import connectMongo from "../../mongoDB/connectDB";
 
-export default function Index({ results }) {
+export default function Index({ reviews }) {
     const { data: session } = useSession();
     return (
         <div>
             <h1>Recently Posted</h1>
 
             <section>
-                {results.map((review) => {
+                {reviews.map((review) => {
                     return (
                         <article className="review" key={review._id}>
                             <div id="main-container">
@@ -91,46 +89,30 @@ const likePost = async (reviewId, userId) => {
         });
 };
 
-// export async function getServerSideProps(context) {
-//     context.res.setHeader(
-//         "Cache-Control",
-//         "public, s-maxage=10, stale-while-revalidate=59"
-//     );
-//     const requestOptions = {
-//         method: "GET",
-//         headers: {
-//             "Content-Type": "application/json",
-//         },
-//     };
-//     try {
-//         const response = await fetch(
-//             process.env.SITE_URL + "/api/reviews/requests",
-//             requestOptions
-//         );
-//         const reviews = await response.json();
-
-//         return {
-//             props: {
-//                 reviews,
-//             },
-//         };
-//     } catch (error) {
-//         return console.log(error);
-//     }
-// }
-
 export async function getServerSideProps(context) {
-    await connectMongo();
-    const results = await Review.find({}, function (error, foundReviews) {
-        if (error) {
-            return;
-        } else {
-            return JSON.parse(JSON.stringify(foundReviews));
-        }
-    })
-    .clone();
-
-    return {
-        props: { results },
+    context.res.setHeader(
+        "Cache-Control",
+        "public, s-maxage=10, stale-while-revalidate=59"
+    );
+    const requestOptions = {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
     };
+    try {
+        const response = await fetch(
+            process.env.SITE_URL + "/api/reviews/requests",
+            requestOptions
+        );
+        const reviews = await response.json();
+
+        return {
+            props: {
+                reviews,
+            },
+        };
+    } catch (error) {
+        return console.log(error);
+    }
 }
