@@ -1,15 +1,17 @@
 import moment from "moment";
 import Button from "react-bootstrap/Button";
 import { getSession } from "next-auth/react";
-import { server } from "../../config/";
 
-export default function Index({ reviews, session }) {
+import connectMongo from "../../mongoDB/connectDB";
+import Review from "../../mongoDB/models/reviewModel";
+
+export default function Index({ results, session }) {
     return (
         <div>
             <h1>Recently Posted</h1>
 
             <section>
-                {reviews.map((review) => {
+                {results.map((review) => {
                     return (
                         <article className="review" key={review._id}>
                             <div id="main-container">
@@ -89,30 +91,39 @@ const likePost = async (reviewId, userId) => {
         });
 };
 
-export async function getServerSideProps(context) {
-    context.res.setHeader(
-        "Cache-Control",
-        "public, s-maxage=10, stale-while-revalidate=59"
-    );
-    const requestOptions = {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-        },
-    };
-    try {
-        const response = await fetch(
-            process.env.SITE_URL + "/api/reviews/requests",
-            requestOptions
-        );
-        const reviews = await response.json();
+// export async function getServerSideProps(context) {
+//     context.res.setHeader(
+//         "Cache-Control",
+//         "public, s-maxage=10, stale-while-revalidate=59"
+//     );
+//     const requestOptions = {
+//         method: "GET",
+//         headers: {
+//             "Content-Type": "application/json",
+//         },
+//     };
+//     try {
+//         const response = await fetch(
+//             process.env.SITE_URL + "/api/reviews/requests",
+//             requestOptions
+//         );
+//         const reviews = await response.json();
 
-        return {
-            props: {
-                reviews,
-            },
-        };
-    } catch (error) {
-        return console.log(error);
-    }
+//         return {
+//             props: {
+//                 reviews,
+//             },
+//         };
+//     } catch (error) {
+//         return console.log(error);
+//     }
+// }
+
+export async function getServerSideProps(context) {
+    await connectMongo();
+    const results = await Review.find({}).lean();
+
+    return {
+        props: { results: JSON.parse(JSON.stringify(results)) },
+    };
 }
