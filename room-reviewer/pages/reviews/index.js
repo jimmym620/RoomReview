@@ -121,7 +121,12 @@ const likePost = async (reviewId, userId) => {
 
 export async function getServerSideProps(context) {
     await connectMongo();
-    const results = await Review.find({}).lean();
+    let results = {};
+    try {
+        results = await Review.find({}).lean();
+    } catch (err) {
+        console.log(err);
+    }
 
     return {
         props: { results: JSON.parse(JSON.stringify(results)) },
