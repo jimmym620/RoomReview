@@ -30,8 +30,7 @@ function ReviewModal({
                 body: JSON.stringify(data),
             };
             await fetch(
-                process.env.SITE_URL +
-                    "/api/reviews/requests?" +
+                "/api/reviews/requests?" +
                     new URLSearchParams({ reviewId: id }),
                 requestOptions
             ).then((response) => {

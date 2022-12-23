@@ -25,17 +25,6 @@ export default async function handler(req, res) {
                 }
             }
         );
-    } else if (req.method === "GET") {
-        await connectMongo();
-        await Review.find({}, function (error, foundReviews) {
-            if (error) {
-                return res.send(error);
-            } else {
-                if (foundReviews) {
-                    return res.status(200).send(foundReviews);
-                }
-            }
-        }).clone();
     } else if (req.method === "PATCH") {
         await Review.updateOne({ _id: id }, { $set: req.body }).then(function (
             err,

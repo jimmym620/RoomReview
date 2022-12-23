@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
-const Schema = mongoose.Schema;
 
-const reviewSchema = new Schema({
+const reviewSchema = new mongoose.Schema({
     title: { type: String, required: true },
     rating: { type: Number, required: true },
     comment: { type: String },

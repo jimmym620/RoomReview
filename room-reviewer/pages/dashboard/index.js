@@ -96,9 +96,7 @@ const deleteReview = async (id) => {
             },
         };
         await fetch(
-            process.env.SITE_URL +
-                "/api/reviews/requests?" +
-                new URLSearchParams({ reviewId: id }),
+            "/api/reviews/requests?" + new URLSearchParams({ reviewId: id }),
             requestOptions
         );
     } catch (error) {
