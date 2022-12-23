@@ -14,7 +14,7 @@ export default function SubmitReview() {
     } else {
         return (
             <div>
-                <p> You are not signed in</p>
+                <p> Want to contribute by adding a review? Sign in below.</p>
                 <Button
                     onClick={() => {
                         signIn();
