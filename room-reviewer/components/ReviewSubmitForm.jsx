@@ -21,10 +21,7 @@ function ReviewSubmitForm() {
                 body: JSON.stringify(data),
                 mode: "no-cors",
             };
-            await fetch(
-                "http://localhost:3000/api/reviews/requests",
-                requestOptions
-            );
+            await fetch("/api/reviews/requests", requestOptions);
             router.push("/reviews");
             return;
         } catch (error) {
