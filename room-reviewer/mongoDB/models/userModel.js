@@ -3,9 +3,8 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
     email: { type: String, required: true },
-    emailVerified: Boolean,
-    image: String,
     name: { type: String, required: true },
+    password: { type: String, required: true },
 });
 
 // Check if models exists

@@ -10,61 +10,67 @@ export default function Index({ results, session }) {
         <div>
             <h1>Recently Posted</h1>
 
-            <section>
-                {results.map((review) => {
-                    return (
-                        <article className="review" key={review._id}>
-                            <div id="main-container">
-                                <h3 id="title">{review.title}</h3>
-                                <section>
-                                    <p>
-                                        By <b>{review.author}</b>
-                                    </p>
-                                    <p id="rating">{review.rating} / 5 stars</p>
+            {results && (
+                <section>
+                    {results.map((review) => {
+                        return (
+                            <article className="review" key={review._id}>
+                                <div id="main-container">
+                                    <h3 id="title">{review.title}</h3>
+                                    <section>
+                                        <p>
+                                            By <b>{review.author}</b>
+                                        </p>
+                                        <p id="rating">
+                                            {review.rating} / 5 stars
+                                        </p>
 
-                                    {session ? ( // IF session exists
-                                        review.authorID !== session.user.id ? ( //IF the post author isn't the the current session user
-                                            <div id="upvote-container">
-                                                <Button
-                                                    onClick={() => {
-                                                        likePost(
-                                                            review._id,
+                                        {session ? ( // IF session exists
+                                            review.authorID !==
+                                            session.user.id ? ( //IF the post author isn't the the current session user
+                                                <div id="upvote-container">
+                                                    <Button
+                                                        onClick={() => {
+                                                            likePost(
+                                                                review._id,
+                                                                session.user.id
+                                                            );
+                                                        }}
+                                                    >
+                                                        {review.upvotedBy.includes(
                                                             session.user.id
-                                                        );
-                                                    }}
-                                                >
-                                                    {review.upvotedBy.includes(
-                                                        session.user.id
-                                                    )
-                                                        ? "Unlike"
-                                                        : "Like"}
-                                                </Button>
-                                            </div>
-                                        ) : null
-                                    ) : null}
-                                    <p>{review.upvotedBy.length}</p>
-                                </section>
-                                <p id="comment">{review.comment}</p>
+                                                        )
+                                                            ? "Unlike"
+                                                            : "Like"}
+                                                    </Button>
+                                                </div>
+                                            ) : null
+                                        ) : null}
+                                        <p>{review.upvotedBy.length}</p>
+                                    </section>
+                                    <p id="comment">{review.comment}</p>
 
-                                <section>
-                                    <div>
-                                        <p>Date of visit:</p>
-                                        <b>
-                                            {moment(review.dateVisited).format(
-                                                "DD/MM/YYYY"
-                                            )}
-                                        </b>
-                                    </div>
-                                    <div>
-                                        <p>At:</p>
-                                        <b>{review.location}</b>
-                                    </div>
-                                </section>
-                            </div>
-                        </article>
-                    );
-                })}
-            </section>
+                                    <section>
+                                        <div>
+                                            <p>Date of visit:</p>
+                                            <b>
+                                                {moment(
+                                                    review.dateVisited
+                                                ).format("DD/MM/YYYY")}
+                                            </b>
+                                        </div>
+                                        <div>
+                                            <p>At:</p>
+                                            <b>{review.location}</b>
+                                        </div>
+                                    </section>
+                                </div>
+                            </article>
+                        );
+                    })}
+                </section>
+            )}
+
             <p>Want to add a review? Sign up to start posting</p>
         </div>
     );
