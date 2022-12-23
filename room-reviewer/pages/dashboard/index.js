@@ -1,9 +1,10 @@
 import { useSession, getSession } from "next-auth/react";
-import Button from "react-bootstrap/Button";
+import { Button, Modal } from "react-bootstrap";
 import ReviewModal from "../../components/ReviewModal";
 import { useState } from "react";
-import Modal from "react-bootstrap/Modal";
 import { useRouter } from "next/router";
+import connectMongo from "../../mongoDB/connectDB";
+import Review from "../../mongoDB/models/reviewModel";
 
 export default function Index({ result, session }) {
     const { data: status } = useSession();
@@ -105,22 +106,43 @@ const deleteReview = async (id) => {
     }
 };
 
+// export async function getServerSideProps({ req }) {
+//     const session = await getSession({ req });
+//     if (session) {
+//         try {
+//             // GET user info
+//             const user = await fetch(
+//                 process.env.SITE_URL +
+//                     "/api/user/requests?" +
+//                     new URLSearchParams({
+//                         userId: session.user.id,
+//                     })
+//             );
+//             const result = await user.json();
+
+//             return {
+//                 props: { result, session },
+//             };
+//         } catch (error) {
+//             return console.log(error);
+//         }
+//     }
+// }
+
 export async function getServerSideProps({ req }) {
     const session = await getSession({ req });
-    if (session) {
-        try {
-            // GET user info
-            const user = await fetch(
-                process.env.SITE_URL +
-                    "/api/user/requests?" +
-                    new URLSearchParams({
-                        userId: session.user.id,
-                    })
-            );
-            const result = await user.json();
 
+    if (session) {
+        const id = session.user.id;
+        let result = {};
+        try {
+            await connectMongo();
+            result = await Review.find({ authorID: id }).lean();
             return {
-                props: { result, session },
+                props: {
+                    result: JSON.parse(JSON.stringify(result)),
+                    session,
+                },
             };
         } catch (error) {
             return console.log(error);
