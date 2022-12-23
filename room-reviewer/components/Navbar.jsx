@@ -1,12 +1,18 @@
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
 import { useSession, signIn, signOut } from "next-auth/react";
-import Button from "react-bootstrap/Button";
+import { useState } from "react";
+import {
+    Button,
+    NavDropdown,
+    Navbar,
+    Nav,
+    Container,
+    Modal,
+} from "react-bootstrap";
+import SignOutModalBody from "./SignOutModalBody";
 
 function NavigationBar() {
     const { data: session, status } = useSession();
+    const [showState, setShowState] = useState(false);
 
     return (
         <div>
@@ -49,7 +55,8 @@ function NavigationBar() {
                                     />
                                     <Button
                                         onClick={() => {
-                                            signOut({ callbackUrl: "/" });
+                                            setShowState(true);
+                                            // signOut({ callbackUrl: "/" });
                                         }}
                                     >
                                         Logout
@@ -70,6 +77,9 @@ function NavigationBar() {
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
+            <Modal show={showState} onHide={() => setShowState(false)}>
+                <SignOutModalBody showStateChanger={setShowState} />
+            </Modal>
         </div>
     );
 }
