@@ -2,7 +2,6 @@ import connectMongo from "../../../mongoDB/connectDB";
 import Review from "../../../mongoDB/models/reviewModel";
 
 export default async function handler(req, res) {
-    const id = req.query.reviewId;
     await connectMongo();
     if (req.method === "POST") {
         await Review.create(
@@ -26,6 +25,7 @@ export default async function handler(req, res) {
             }
         );
     } else if (req.method === "PATCH") {
+        const id = req.query.reviewId;
         await Review.updateOne({ _id: id }, { $set: req.body }).then(function (
             err,
             result
@@ -40,6 +40,7 @@ export default async function handler(req, res) {
             }
         });
     } else if (req.method === "DELETE") {
+        const id = req.query.reviewId;
         await Review.deleteOne({ _id: id }).then(function (err) {
             if (err) {
                 return res.send(err);
