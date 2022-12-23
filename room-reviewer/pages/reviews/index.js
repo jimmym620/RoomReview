@@ -85,10 +85,7 @@ const likePost = async (reviewId, userId) => {
         body: JSON.stringify({ uid: userId }),
     };
 
-    await fetch(
-        process.env.SITE_URL + "/api/reviews/" + reviewId,
-        requestOptions
-    )
+    await fetch("/api/reviews/" + reviewId, requestOptions)
         .then(() => {
             window.location.reload();
         })
@@ -126,6 +123,7 @@ const likePost = async (reviewId, userId) => {
 // }
 
 export async function getServerSideProps(context) {
+    const session = await getSession(context);
     await connectMongo();
     let results = {};
     try {
@@ -135,6 +133,6 @@ export async function getServerSideProps(context) {
     }
 
     return {
-        props: { results: JSON.parse(JSON.stringify(results)) },
+        props: { results: JSON.parse(JSON.stringify(results)), session },
     };
 }

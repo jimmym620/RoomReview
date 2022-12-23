@@ -127,8 +127,8 @@ const deleteReview = async (id) => {
 //     }
 // }
 
-export async function getServerSideProps({ req }) {
-    const session = await getSession({ req });
+export async function getServerSideProps(context) {
+    const session = await getSession(context);
 
     if (session) {
         const id = session.user.id;
