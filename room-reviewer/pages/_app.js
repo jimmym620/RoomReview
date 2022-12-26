@@ -5,33 +5,26 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Layout from "../components/Layout";
 import "../styles/globals.scss";
 import Router from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import NProgress from "nprogress";
+import "nprogress/nprogress.css";
 
 const MyApp = ({ Component, pageProps, session }) => {
-    const [loading, setLoading] = useState(false);
     useEffect(() => {
-        const start = () => {
-            console.log("start");
-            setLoading(true);
-        };
-        const end = () => {
-            console.log("finished");
-            setLoading(false);
-        };
-        Router.events.on("routeChangeStart", start);
-        Router.events.on("routeChangeComplete", end);
-        Router.events.on("routeChangeError", end);
+        Router.events.on("routeChangeStart", NProgress.start());
+        Router.events.on("routeChangeComplete", NProgress.done());
+        Router.events.on("routeChangeError", NProgress.done());
         return () => {
-            Router.events.off("routeChangeStart", start);
-            Router.events.off("routeChangeComplete", end);
-            Router.events.off("routeChangeError", end);
+            Router.events.off("routeChangeStart", NProgress.start());
+            Router.events.off("routeChangeComplete", NProgress.done());
+            Router.events.off("routeChangeError", NProgress.done());
         };
     }, []);
     return (
         <SSRProvider>
             <SessionProvider session={session}>
                 <Layout>
-                    {loading ? <h1>Loading</h1> : <Component {...pageProps} />}
+                    <Component {...pageProps} />
                 </Layout>
             </SessionProvider>
         </SSRProvider>
