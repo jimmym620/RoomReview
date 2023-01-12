@@ -6,8 +6,8 @@ export default function Index() {
     const { data: session } = useSession();
 
     return (
-        <div>
-            <h1>Home page</h1>
+        <div className="homepage-container">
+            <h1>Welcome</h1>
 
             {session ? <SessionedHomePage /> : <UnsessionedHomePage />}
         </div>

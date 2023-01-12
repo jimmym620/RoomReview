@@ -1,10 +1,12 @@
-import Button from "react-bootstrap/Button";
-
+import { signIn } from "next-auth/react";
 
 export default function SessionedHomePage({ userData }) {
     return (
-        <div>
-            <p>You are logged in</p>
+        <div className="body">
+            <a href="/reviews">
+                <p>Click here to view recent reviews</p>
+            </a>
+
             {/* <p>{userData.name}</p> */}
         </div>
     );
