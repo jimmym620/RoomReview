@@ -94,34 +94,6 @@ const likePost = async (reviewId, userId) => {
         });
 };
 
-// export async function getServerSideProps(context) {
-//     context.res.setHeader(
-//         "Cache-Control",
-//         "public, s-maxage=10, stale-while-revalidate=59"
-//     );
-//     const requestOptions = {
-//         method: "GET",
-//         headers: {
-//             "Content-Type": "application/json",
-//         },
-//     };
-//     try {
-//         const response = await fetch(
-//             process.env.SITE_URL + "/api/reviews/requests",
-//             requestOptions
-//         );
-//         const reviews = await response.json();
-
-//         return {
-//             props: {
-//                 reviews,
-//             },
-//         };
-//     } catch (error) {
-//         return console.log(error);
-//     }
-// }
-
 export async function getStaticProps(context) {
     const session = await getSession(context);
     await connectMongo();

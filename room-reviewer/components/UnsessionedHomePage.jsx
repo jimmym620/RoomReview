@@ -6,6 +6,9 @@ function UnsessionedHomePage() {
             <a href="" onClick={signIn}>
                 <p>Click here to sign in</p>
             </a>
+            <a href="/reviews">
+                <p>View recent reviews</p>
+            </a>
         </div>
     );
 }
