@@ -3,6 +3,7 @@ import { BiMenu } from "react-icons/bi";
 import { useState } from "react";
 import { Modal } from "react-bootstrap";
 import SignOutModalBody from "./SignOutModalBody";
+import Link from "next/link";
 
 function NavigationBar() {
     const { data: session, status } = useSession();
@@ -12,13 +13,13 @@ function NavigationBar() {
     return (
         <>
             <nav className="bg-green-200 flex justify-around p-3">
-                <a href="/">
+                <Link href="/">
                     <h1 className="text-2xl">Room Reviewer</h1>
-                </a>
+                </Link>
 
                 <div className="hidden md:flex my-auto gap-4 font-medium">
-                    <a href="/reviews"> Reviews</a>
-                    <a href="/reviews/submit">Submit </a>
+                    <Link href="/reviews"> Reviews</Link>
+                    <Link href="/reviews/submit">Submit </Link>
                 </div>
 
                 <button
@@ -31,11 +32,11 @@ function NavigationBar() {
                     <div className="w-1/3 absolute right-0 p-1 z-10 mt-12 rounded-sm bg-green-100 flex flex-col">
                         <div className="flex flex-col text-center">
                             <div className="flex flex-col md:hidden">
-                                <a href="/reviews">Reviews</a>
-                                <a href="/reviews/submit">Create</a>
+                                <Link href="/reviews">Reviews</Link>
+                                <Link href="/reviews/submit">Create</Link>
                             </div>
 
-                            <a href="/dashboard">Dashboard</a>
+                            <Link href="/dashboard">Dashboard</Link>
                             {/* if user is authenticated, render sign in or out button */}
                             <LoginLogoutBtn
                                 signIn={signIn}
