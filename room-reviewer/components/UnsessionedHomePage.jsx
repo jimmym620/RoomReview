@@ -1,14 +1,15 @@
 import { signIn } from "next-auth/react";
+import Link from "next/link";
 
 function UnsessionedHomePage() {
     return (
         <div>
-            <a href="" onClick={signIn}>
+            <Link href="" onClick={signIn}>
                 <p>Click here to sign in</p>
-            </a>
-            <a href="/reviews">
+            </Link>
+            <Link href="/reviews">
                 <p>View recent reviews</p>
-            </a>
+            </Link>
         </div>
     );
 }
