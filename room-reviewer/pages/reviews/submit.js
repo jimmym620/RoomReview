@@ -7,21 +7,22 @@ export default function SubmitReview() {
     if (status === "authenticated") {
         return (
             <div>
-                <h1>Add a review</h1>
+                <h1 className="text-2xl text-center">Add a review</h1>
                 <ReviewSubmitForm />
             </div>
         );
     } else {
         return (
-            <div>
-                <p> Want to contribute by adding a review? Sign in below.</p>
-                <Button
+            <div className="text-center">
+                <p> You must have an account to post reviews</p>
+                <button
+                    className="underline text-blue-500"
                     onClick={() => {
                         signIn();
                     }}
                 >
                     Sign In
-                </Button>
+                </button>
             </div>
         );
     }

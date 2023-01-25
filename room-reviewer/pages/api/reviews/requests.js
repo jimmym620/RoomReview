@@ -20,7 +20,7 @@ export default async function handler(req, res) {
                 } else {
                     return res
                         .status(200)
-                        .send({ message: "Successfully created post" });
+                        .json({ message: "Successfully created post" });
                 }
             }
         );

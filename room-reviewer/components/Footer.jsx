@@ -1,6 +1,6 @@
 function Footer() {
     return (
-        <div className="m-4 bg-">
+        <div className="m-4">
             <footer>Copyright 2022</footer>
         </div>
     );
