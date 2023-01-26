@@ -1,116 +1,125 @@
+import { Button, Form } from "react-bootstrap";
+import Modal from "react-bootstrap/Modal";
 import { useForm } from "react-hook-form";
-import Router from "next/router";
+import { useRouter } from "next/router";
 import moment from "moment";
 
-export default function ReviewModal({
+function ReviewModal({
+    close,
+    id,
     title,
     location,
     rating,
     dateVisited,
     comment,
 }) {
+    const router = useRouter();
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm();
 
+    const onSubmit = async (data) => {
+        try {
+            const requestOptions = {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            };
+            await fetch(
+                "/api/reviews/requests?" +
+                    new URLSearchParams({ reviewId: id }),
+                requestOptions
+            ).then((response) => {
+                if (response.ok) {
+                    close();
+                    router.push("/dashboard");
+                }
+            });
+        } catch (error) {
+            return console.log(error);
+        }
+    };
+
     return (
-        <div>
-            <div>
-                <h1>Edit: {location}</h1>
-
-                <div>
-                    <form
-                        className="flex flex-col gap-3 "
-                        onSubmit={handleSubmit(onFormSubmit)}
-                    >
-                        <section className="flex flex-col gap-2">
-                            <label>Title:</label>
-                            <input
-                                className="border rounded p-2"
-                                type="text"
-                                defaultValue={title}
-                                {...register("title")}
-                            />
-                        </section>
-
+        <>
+            <Modal.Header>
+                <Modal.Title>Edit {title}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <Form className="reviewForm " onSubmit={handleSubmit(onSubmit)}>
+                    <Form.Group className="mb-1">
+                        <Form.Label>Title</Form.Label>
+                        <Form.Control
+                            {...register("title")}
+                            defaultValue={title}
+                        ></Form.Control>
                         {errors.title && <span>This field is required</span>}
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Hotel name / Place of stay </Form.Label>
+                        <Form.Control
+                            {...register("location")}
+                            defaultValue={location}
+                        ></Form.Control>
+                    </Form.Group>
 
-                        <section className="flex flex-col gap-2">
-                            <label>Hotel name / Place of stay </label>
-                            <input
-                                className="border rounded p-2"
-                                {...register("location")}
-                                defaultValue={location}
-                            ></input>
-                        </section>
-
-                        <section className="flex flex-col gap-2">
-                            <label htmlFor="rating">
-                                How would you rate your experience?
-                            </label>
-                            <select
-                                {...register("rating")}
-                                className="border rounded p-2"
-                                defaultValue={rating}
-                            >
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
-                        </section>
-                        <section className="flex gap-2 justify-between ">
-                            <label>Date of visit:</label>
-                            <input
-                                className="border rounded p-2"
-                                {...register("dateVisited")}
-                                type="date"
-                                defaultValue={moment(dateVisited).format(
-                                    "YYYY-MM-DD"
-                                )}
-                            />
-                        </section>
-                        <section className="flex flex-col gap-2">
-                            <label>
-                                Describe your experience <i>(optional)</i>
-                            </label>
-                            <textarea
-                                className="border rounded p-2"
-                                {...register("comment")}
-                                defaultValue={comment}
-                                rows="3"
-                            ></textarea>
-                        </section>
-                    </form>
-                </div>
-            </div>
-        </div>
+                    <Form.Group>
+                        <Form.Label htmlFor="rating">
+                            How would you rate your experience?
+                        </Form.Label>
+                        <select
+                            {...register("rating")}
+                            className="form-control"
+                            defaultValue={rating}
+                        >
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Date of visit:</Form.Label>
+                        <Form.Control
+                            {...register("dateVisited")}
+                            type="date"
+                            defaultValue={moment(dateVisited).format(
+                                "YYYY-MM-DD"
+                            )}
+                        />
+                    </Form.Group>
+                    <Form.Group className="mb-2" controlId="formBasicBody">
+                        <Form.Label>
+                            Describe your experience <i>(optional)</i>
+                        </Form.Label>
+                        <textarea
+                            className="form-control"
+                            {...register("comment")}
+                            defaultValue={comment}
+                            rows="3"
+                        ></textarea>
+                    </Form.Group>
+                </Form>
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant="secondary" onClick={close}>
+                    Cancel
+                </Button>
+                <Button
+                    variant="primary"
+                    onClick={handleSubmit(onSubmit)}
+                    //SUBMIT PATCH REQUEST
+                >
+                    Save Changes
+                </Button>
+            </Modal.Footer>
+        </>
     );
 }
 
-const onFormSubmit = async (data) => {
-    try {
-        const requestOptions = {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
-        };
-        await fetch(
-            "/api/reviews/requests?" + new URLSearchParams({ reviewId: id }),
-            requestOptions
-        ).then((response) => {
-            // If success, close modal and redirect to dashboard
-            if (response.ok) {
-                close();
-                Router.reload(window.location.pathname);
-            }
-        });
-    } catch (error) {
-        console.log(error);
-    }
-};
+export default ReviewModal;

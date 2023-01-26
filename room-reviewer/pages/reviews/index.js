@@ -8,23 +8,22 @@ import Review from "../../mongoDB/models/reviewModel";
 export default function Index({ results, session }) {
     return (
         <div>
-            <h1 className="text-3xl text-center mb-4">Recently Posted</h1>
+            <h1>Recently Posted</h1>
 
             {results && (
-                <section className="flex flex-col gap-2">
+                <section>
                     {results.map((review) => {
                         return (
-                            <article
-                                className="md:w-1/2 m-auto border rounded p-4 "
-                                key={review._id}
-                            >
-                                <div>
-                                    <h3 className="text-2xl">{review.title}</h3>
+                            <article className="review" key={review._id}>
+                                <div id="main-container">
+                                    <h3 id="title">{review.title}</h3>
                                     <section>
                                         <p>
                                             By <b>{review.author}</b>
                                         </p>
-                                        <p>{review.rating} / 5 stars</p>
+                                        <p id="rating">
+                                            {review.rating} / 5 stars
+                                        </p>
 
                                         {session ? ( // IF session exists
                                             review.authorID !==
@@ -47,14 +46,12 @@ export default function Index({ results, session }) {
                                                 </div>
                                             ) : null
                                         ) : null}
-                                        <p>{review.upvotedBy.length} upvotes</p>
+                                        <p>{review.upvotedBy.length}</p>
                                     </section>
-                                    <p className="border rounded p-2 my-2">
-                                        {review.comment}
-                                    </p>
+                                    <p id="comment">{review.comment}</p>
 
                                     <section>
-                                        <div className="flex gap-2">
+                                        <div>
                                             <p>Date of visit:</p>
                                             <b>
                                                 {moment(
@@ -62,7 +59,7 @@ export default function Index({ results, session }) {
                                                 ).format("DD/MM/YYYY")}
                                             </b>
                                         </div>
-                                        <div className="flex gap-2">
+                                        <div>
                                             <p>At:</p>
                                             <b>{review.location}</b>
                                         </div>
@@ -74,9 +71,7 @@ export default function Index({ results, session }) {
                 </section>
             )}
 
-            <p className="text-center">
-                Want to add a review? Sign up to start posting
-            </p>
+            <p>Want to add a review? Sign up to start posting</p>
         </div>
     );
 }

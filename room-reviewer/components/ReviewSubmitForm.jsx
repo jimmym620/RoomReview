@@ -20,18 +20,15 @@ function ReviewSubmitForm() {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(data),
             };
-            await fetch("/api/reviews/requests", requestOptions).then(
-                (response) => {
-                    if (response.ok) {
-                        router.push("/reviews");
-                    }
-                }
-            );
+            await fetch("/api/reviews/requests", requestOptions);
+            router.push("/reviews");
+            return;
         } catch (error) {
-            console.log(error);
+            return console.log(error);
         }
     };
 
+    // console.log(watch("Title"));
     return (
         <div>
             <Form className="reviewForm " onSubmit={handleSubmit(onSubmit)}>
@@ -93,12 +90,9 @@ function ReviewSubmitForm() {
                         {...register("comment")}
                         rows="3"
                     ></textarea>
-                    <button
-                        className="mt-2 bg-blue-500 text-white p-2 rounded"
-                        type="submit"
-                    >
+                    <Button className="submitBTN" type="submit">
                         Submit
-                    </button>
+                    </Button>
                 </Form.Group>
             </Form>
         </div>
