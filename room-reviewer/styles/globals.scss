@@ -49,20 +49,6 @@ a {
     }
 }
 
-main div {
-    text-align: center;
-
-    h1 {
-        // text-align: center;
-        color: $color-dark;
-        margin-bottom: 2rem;
-    }
-    .submitBTN {
-        background-color: $color-lgreen;
-        color: black;
-    }
-}
-
 .reviewForm {
     margin: auto;
     width: 50%;
@@ -152,64 +138,5 @@ main div {
         span {
             color: $color-lgreen;
         }
-    }
-}
-
-footer {
-    margin-top: 0.5rem;
-    padding: 0.5rem;
-    background-color: $color-teagreen;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    text-align: center;
-}
-
-/* @media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: F3EFF5;
-    background: F3EFF5;
-  }
-} */
-
-@include media-breakpoint-down(sm) {
-    .review,
-    .reviewForm {
-        width: 90%;
-    }
-
-    .review {
-        flex-direction: column;
-        section {
-            display: flex;
-            flex-direction: column;
-        }
-    }
-
-    #navigation {
-        display: flex;
-        .container {
-            width: 100%;
-        }
-        .profile-container {
-            width: 100%;
-            display: flex;
-            justify-self: flex-end;
-            padding: 0.5rem;
-            div button {
-                background-color: $color-light;
-            }
-        }
-    }
-}
-
-@include media-breakpoint-down(lg) {
-    .review,
-    .reviewForm {
-        width: 75%;
     }
 }
