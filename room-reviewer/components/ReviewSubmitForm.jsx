@@ -3,7 +3,7 @@ import { useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 
-function ReviewSubmitForm() {
+export default function ReviewSubmitForm() {
     const router = useRouter();
     const {
         register,
@@ -13,25 +13,28 @@ function ReviewSubmitForm() {
 
     const { data: session } = useSession();
 
-    const onSubmit = async (data) => {
-        try {
-            const requestOptions = {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data),
-            };
-            await fetch("/api/reviews/requests", requestOptions);
-            router.push("/reviews");
-            return;
-        } catch (error) {
-            return console.log(error);
-        }
+    const onFormSubmit = async (data) => {
+        const requestOptions = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+        };
+        await fetch("/api/reviews/requests", requestOptions)
+            .then((response) => {
+                if (response.ok) {
+                    router.push({ pathname: "/dashboard" });
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        return;
     };
 
     // console.log(watch("Title"));
     return (
         <div>
-            <Form className="reviewForm " onSubmit={handleSubmit(onSubmit)}>
+            <Form className="reviewForm " onSubmit={handleSubmit(onFormSubmit)}>
                 <Form.Group className="mb-1">
                     <Form.Label>Title</Form.Label>
                     <Form.Control
@@ -98,4 +101,3 @@ function ReviewSubmitForm() {
         </div>
     );
 }
-export default ReviewSubmitForm;

@@ -2,14 +2,14 @@ import { useSession, getSession } from "next-auth/react";
 import { Button, Modal } from "react-bootstrap";
 import ReviewModal from "../../components/ReviewModal";
 import { useState } from "react";
-import { useRouter } from "next/router";
+import Router from "next/router";
 import connectMongo from "../../mongoDB/connectDB";
 import Review from "../../mongoDB/models/reviewModel";
 
 export default function Index({ result, session }) {
     const [showModal, setShowModal] = useState(false);
     const [modalData, setModalData] = useState({});
-    const router = useRouter();
+    // const router = useRouter();
 
     if (session) {
         return (
@@ -41,12 +41,8 @@ export default function Index({ result, session }) {
                                 <Button
                                     variant="danger"
                                     onClick={() => {
-                                        try {
-                                            deleteReview(review._id);
-                                            router.push("/dashboard");
-                                        } catch (error) {
-                                            return console.log(error);
-                                        }
+                                        deleteReview(review._id);
+                                        Router.push("/dashboard");
                                     }}
                                 >
                                     Delete
@@ -102,29 +98,6 @@ const deleteReview = async (id) => {
         return console.log(error);
     }
 };
-
-// export async function getServerSideProps({ req }) {
-//     const session = await getSession({ req });
-//     if (session) {
-//         try {
-//             // GET user info
-//             const user = await fetch(
-//                 process.env.SITE_URL +
-//                     "/api/user/requests?" +
-//                     new URLSearchParams({
-//                         userId: session.user.id,
-//                     })
-//             );
-//             const result = await user.json();
-
-//             return {
-//                 props: { result, session },
-//             };
-//         } catch (error) {
-//             return console.log(error);
-//         }
-//     }
-// }
 
 export async function getServerSideProps(context) {
     const session = await getSession(context);
