@@ -7,7 +7,7 @@ export default function Index() {
 
     return (
         <div>
-            <h1>Welcome</h1>
+            <h1 className="text-3xl text-center mt-2">Welcome</h1>
 
             {/* {session ? <SessionedHomePage /> : <UnsessionedHomePage />} */}
         </div>
