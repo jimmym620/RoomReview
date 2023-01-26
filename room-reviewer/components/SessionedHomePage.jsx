@@ -1,11 +1,12 @@
 import { signIn } from "next-auth/react";
+import Link from "next/link";
 
 export default function SessionedHomePage({ userData }) {
     return (
         <div className="body">
-            <a href="/reviews">
+            <Link href="/reviews">
                 <p>View recent reviews</p>
-            </a>
+            </Link>
 
             {/* <p>{userData.name}</p> */}
         </div>

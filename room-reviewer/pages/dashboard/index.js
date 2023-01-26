@@ -7,7 +7,6 @@ import connectMongo from "../../mongoDB/connectDB";
 import Review from "../../mongoDB/models/reviewModel";
 
 export default function Index({ result, session }) {
-    const { data: status } = useSession();
     const [showModal, setShowModal] = useState(false);
     const [modalData, setModalData] = useState({});
     const router = useRouter();

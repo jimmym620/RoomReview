@@ -9,7 +9,7 @@ export default function Index() {
         <div className="homepage-container">
             <h1>Welcome</h1>
 
-            {session ? <SessionedHomePage /> : <UnsessionedHomePage />}
+            {/* {session ? <SessionedHomePage /> : <UnsessionedHomePage />} */}
         </div>
     );
 }

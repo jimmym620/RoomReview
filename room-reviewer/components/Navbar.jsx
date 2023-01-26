@@ -48,11 +48,11 @@ function NavigationBar() {
                             {/* if user is authenticated, render sign in or out button*/}
                             {status === "authenticated" ? (
                                 <div>
-                                    <img
+                                    {/* <img
                                         className="userImage"
                                         src={session.user.image}
                                         alt=""
-                                    />
+                                    /> */}
                                     <Button
                                         onClick={() => {
                                             setShowState(true);
