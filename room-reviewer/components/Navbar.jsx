@@ -1,17 +1,18 @@
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useState } from "react";
 import { BiMenu } from "react-icons/bi";
-import { Modal } from "react-bootstrap";
 import SignOutModalBody from "./SignOutModalBody";
+import NavLogoutBtn from "./NavLogoutBtn";
+import NavLoginBtn from "./NavLoginBtn";
 
 function NavigationBar() {
     const { data: session, status } = useSession();
-    const [showState, setShowState] = useState(false);
+    const [modalOpen, setModalOpen] = useState(false);
     const [burgerOpen, setBurgerOpen] = useState(false); // true - open, false- closed
 
     return (
         <>
-            <nav className="bg-green-200 flex justify-around p-3">
+            <nav className="bg-emerald-500 flex justify-around p-3">
                 <a href="/">
                     <h1 className="text-2xl">Room Reviewer</h1>
                 </a>
@@ -35,39 +36,19 @@ function NavigationBar() {
 
                             <a href="/dashboard">Dashboard</a>
                             {/* if user is authenticated, render sign in or out button */}
-                            <LoginLogoutBtn
-                                signIn={signIn}
-                                status={status}
-                                setShowState={setShowState}
-                            />
+                            {session === "authenticated" ? (
+                                <SignOutModalBody />
+                            ) : (
+                                <NavLoginBtn />
+                            )}
                         </div>
                     </div>
                 )}
             </nav>
-            <Modal show={showState} onHide={() => setShowState(false)}>
+            {/* <Modal show={showState} onHide={() => setShowState(false)}>
                 <SignOutModalBody showStateChanger={setShowState} />
-            </Modal>
+            </Modal> */}
         </>
     );
 }
 export default NavigationBar;
-
-// for md+ screen sizes
-const LoginLogoutBtn = ({ status, signIn, setShowState }) => {
-    return (
-        <>
-            {status === "authenticated" ? (
-                <button
-                    onClick={() => {
-                        setShowState(true);
-                        // signOut({ callbackUrl: "/" });
-                    }}
-                >
-                    Logout
-                </button>
-            ) : (
-                <button onClick={() => signIn()}>Login</button>
-            )}
-        </>
-    );
-};

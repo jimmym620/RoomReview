@@ -3,10 +3,10 @@ import Footer from "./Footer";
 
 export default function Layout({ children }) {
     return (
-        <div>
+        <main className="flex flex-col min-h-screen ">
             <Navbar />
-            <main className="px-2">{children}</main>
+            <section className="m-6 flex-grow">{children}</section>
             <Footer />
-        </div>
+        </main>
     );
 }

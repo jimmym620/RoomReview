@@ -7,7 +7,7 @@ import Review from "../../mongoDB/models/reviewModel";
 
 export default function Index({ results, session }) {
     return (
-        <div>
+        <div className="">
             <h1>Recently Posted</h1>
 
             {results && (
