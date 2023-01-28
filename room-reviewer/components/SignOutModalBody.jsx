@@ -1,8 +1,9 @@
 import { signOut } from "next-auth/react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
+import Image from "next/image";
 
-export default function SignOutModalBody() {
+export default function SignOutModalBody({ session }) {
     const [isOpen, setIsOpen] = useState(false);
     function closeModal() {
         setIsOpen(false);
@@ -12,14 +13,22 @@ export default function SignOutModalBody() {
         setIsOpen(true);
     }
     return (
-        <>
+        <div className=" md:w-1/3 md:mx-auto flex justify-center">
             <button
                 type="button"
                 onClick={openModal}
-                className="block text-white w-1/4 m-auto bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded py-2 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                className="text-white w-1/2  bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded py-2 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
             >
                 Logout
             </button>
+            {/* 
+            <div className="w-1/3 md:w-1/3">
+                <img
+                    className=""
+                    src={session.user.image}
+                    alt="profile picture"
+                />
+            </div> */}
 
             <Transition appear show={isOpen} as={Fragment}>
                 <Dialog as="div" className="relative z-10" onClose={closeModal}>
@@ -84,6 +93,6 @@ export default function SignOutModalBody() {
                     </div>
                 </Dialog>
             </Transition>
-        </>
+        </div>
     );
 }

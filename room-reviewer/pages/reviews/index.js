@@ -1,5 +1,5 @@
 import moment from "moment";
-import Button from "react-bootstrap/Button";
+
 import { getSession } from "next-auth/react";
 
 import connectMongo from "../../mongoDB/connectDB";
@@ -8,13 +8,13 @@ import Review from "../../mongoDB/models/reviewModel";
 export default function Index({ results, session }) {
     return (
         <div className="">
-            <h1>Recently Posted</h1>
+            <h1 className="text-center text-3xl">Recently Posted</h1>
 
             {results && (
-                <section>
+                <section className="flex flex-col gap-2 w-1/2 m-auto">
                     {results.map((review) => {
                         return (
-                            <article className="review" key={review._id}>
+                            <article className="border" key={review._id}>
                                 <div id="main-container">
                                     <h3 id="title">{review.title}</h3>
                                     <section>
@@ -29,7 +29,7 @@ export default function Index({ results, session }) {
                                             review.authorID !==
                                             session.user.id ? ( //IF the post author isn't the the current session user
                                                 <div id="upvote-container">
-                                                    <Button
+                                                    <button
                                                         onClick={() => {
                                                             likePost(
                                                                 review._id,
@@ -42,7 +42,7 @@ export default function Index({ results, session }) {
                                                         )
                                                             ? "Unlike"
                                                             : "Like"}
-                                                    </Button>
+                                                    </button>
                                                 </div>
                                             ) : null
                                         ) : null}

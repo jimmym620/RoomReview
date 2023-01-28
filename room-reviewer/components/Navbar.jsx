@@ -1,54 +1,65 @@
 import { useSession, signIn, signOut } from "next-auth/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BiMenu } from "react-icons/bi";
 import SignOutModalBody from "./SignOutModalBody";
-import NavLogoutBtn from "./NavLogoutBtn";
 import NavLoginBtn from "./NavLoginBtn";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 function NavigationBar() {
     const { data: session, status } = useSession();
-    const [modalOpen, setModalOpen] = useState(false);
+    const router = useRouter();
     const [burgerOpen, setBurgerOpen] = useState(false); // true - open, false- closed
+
+    useEffect(() => {
+        if (burgerOpen) {
+            setBurgerOpen(false);
+        }
+    }, [router]);
 
     return (
         <>
             <nav className="bg-emerald-500 flex justify-around p-3">
-                <a href="/">
+                <Link href="/">
                     <h1 className="text-2xl">Room Reviewer</h1>
-                </a>
+                </Link>
                 <div className="hidden md:flex my-auto gap-4 font-medium">
-                    <a href="/reviews"> Reviews</a>
-                    <a href="/reviews/submit">Submit </a>
+                    <Link href="/reviews"> Reviews</Link>
+                    <Link href="/reviews/submit">Submit </Link>
                 </div>
                 <button
-                    className=" p-2"
+                    className=" p-2 text-xl"
                     onClick={() => setBurgerOpen(!burgerOpen)}
                 >
                     <BiMenu />
                 </button>
-                {burgerOpen && (
-                    <div className="w-1/3 absolute right-0 p-1 z-10 mt-12 rounded-sm bg-green-100 flex flex-col">
-                        <div className="flex flex-col text-center">
-                            <div className="flex flex-col md:hidden">
-                                <a href="/reviews">Reviews</a>
-                                <a href="/reviews/submit">Create</a>
-                            </div>
 
-                            <a href="/dashboard">Dashboard</a>
-                            {/* if user is authenticated, render sign in or out button */}
-                            {session === "authenticated" ? (
-                                <SignOutModalBody />
-                            ) : (
-                                <NavLoginBtn />
-                            )}
-                        </div>
-                    </div>
-                )}
+                {burgerOpen && <BurgerNav session={session} />}
             </nav>
-            {/* <Modal show={showState} onHide={() => setShowState(false)}>
-                <SignOutModalBody showStateChanger={setShowState} />
-            </Modal> */}
         </>
     );
 }
 export default NavigationBar;
+
+const BurgerNav = ({ session }) => {
+    return (
+        <div className=" w-1/3 md:w-1/4 absolute right-0 p-1 z-10 mt-10 rounded-sm bg-emerald-400 flex flex-col gap-1">
+            <p className=" text-sm text-center ">{session.user.name}</p>
+            <hr className="w-2/3 m-auto h-px  my-1 md:my-2 bg-gray-200 border-0 dark:bg-gray-700" />
+            <div className="flex flex-col text-center gap-1 md:gap-2 text-lg">
+                <div className="flex flex-col md:hidden">
+                    <Link href="/reviews">All Reviews</Link>
+                    <Link href="/reviews/submit">Submit review</Link>
+                </div>
+
+                <Link href="/dashboard">Dashboard</Link>
+                {/* if user is authenticated, render sign in or out button */}
+                {session ? (
+                    <SignOutModalBody session={session} />
+                ) : (
+                    <NavLoginBtn />
+                )}
+            </div>
+        </div>
+    );
+};
