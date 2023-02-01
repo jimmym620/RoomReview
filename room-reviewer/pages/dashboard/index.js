@@ -12,57 +12,63 @@ export default function Index({ result, session }) {
 
     if (session) {
         return (
-            <div className="">
+            <div>
                 <section className="text-center">
                     <h1 className="text-3xl">Dashboard</h1>
 
-                    <div id="stats">
+                    <div>
                         <p>Your reviews: {result.length}</p>
                         <p>Reviews liked by others: {countLikes(result)}</p>
                         <h2 className="mt-2 text-2xl">Your reviews</h2>
                     </div>
                 </section>
-                {result.map((review) => {
-                    return (
-                        <article id="user-reviews-title" key={review._id}>
-                            <h3>
-                                Hotel Name:
-                                <span> {review.location}</span>
-                            </h3>
-                            <Button
-                                onClick={() => {
-                                    setShowModal(true);
-                                    setModalData(review);
-                                }}
+                <section className="w-11/12 md:w-1/3 mx-auto">
+                    {result.map((review) => {
+                        return (
+                            <article
+                                className="border rounded flex flex-col justify-center py-2"
+                                key={review._id}
                             >
-                                Edit review
-                            </Button>
-                            <Button
-                                variant="danger"
-                                onClick={() => {
-                                    deleteReview(review._id);
-                                    Router.push("/dashboard");
-                                }}
-                            >
-                                Delete
-                            </Button>
-                            <Modal
-                                show={showModal}
-                                onHide={() => setShowModal(false)}
-                            >
-                                <ReviewModal
-                                    close={() => setShowModal(false)}
-                                    id={modalData._id}
-                                    title={modalData.title}
-                                    location={modalData.location}
-                                    rating={modalData.rating}
-                                    dateVisited={modalData.dateVisited}
-                                    comment={modalData.comment}
-                                />
-                            </Modal>
-                        </article>
-                    );
-                })}
+                                <h3 className="text-2xl text-center">
+                                    Hotel Name:
+                                    <span> {review.location}</span>
+                                </h3>
+                                <button
+                                    className="bg-blue-500 border w-1/2 md:w-1/3 m-auto rounded-md text-white mt-1"
+                                    onClick={() => {
+                                        setShowModal(true);
+                                        setModalData(review);
+                                    }}
+                                >
+                                    Edit review
+                                </button>
+                                <button
+                                    className="bg-red-500 border w-1/2 md:w-1/3 m-auto rounded-md text-white mt-1"
+                                    onClick={() => {
+                                        deleteReview(review._id);
+                                        Router.push("/dashboard");
+                                    }}
+                                >
+                                    Delete
+                                </button>
+                                <Modal
+                                    show={showModal}
+                                    onHide={() => setShowModal(false)}
+                                >
+                                    <ReviewModal
+                                        close={() => setShowModal(false)}
+                                        id={modalData._id}
+                                        title={modalData.title}
+                                        location={modalData.location}
+                                        rating={modalData.rating}
+                                        dateVisited={modalData.dateVisited}
+                                        comment={modalData.comment}
+                                    />
+                                </Modal>
+                            </article>
+                        );
+                    })}
+                </section>
             </div>
         );
     } else {
