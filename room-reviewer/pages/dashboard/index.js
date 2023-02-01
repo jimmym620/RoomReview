@@ -1,10 +1,11 @@
-import { useSession, getSession } from "next-auth/react";
+import { signIn, getSession } from "next-auth/react";
 import { Button, Modal } from "react-bootstrap";
 import ReviewModal from "../../components/ReviewModal";
 import { useState } from "react";
 import Router from "next/router";
 import connectMongo from "../../mongoDB/connectDB";
 import Review from "../../mongoDB/models/reviewModel";
+import { redirect } from "next/dist/server/api-utils";
 
 export default function Index({ result, session }) {
     const [showModal, setShowModal] = useState(false);
@@ -115,7 +116,13 @@ export async function getServerSideProps(context) {
                 },
             };
         } catch (error) {
-            return console.log(error);
+            console.log(error);
+            return {
+                redirect: {
+                    destination: "/",
+                    permanent: false,
+                },
+            };
         }
     }
 }
