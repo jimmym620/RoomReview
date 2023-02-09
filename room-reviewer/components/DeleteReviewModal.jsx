@@ -16,7 +16,7 @@ export default function DeleteReviewModal({ deleteReview }) {
             <button
                 type="button"
                 onClick={openModal}
-                className="bg-red-500 border w-full m-auto rounded-md text-white mt-1"
+                className="bg-red-500 border py-1 w-full m-auto rounded-md text-white mt-1"
             >
                 Delete
             </button>

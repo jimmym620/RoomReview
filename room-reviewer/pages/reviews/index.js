@@ -83,7 +83,9 @@ export default function Index({ results, session }) {
                 </section>
             )}
 
-            <p>Want to add a review? Sign up to start posting</p>
+            <p className="text-center">
+                Want to add a review? Sign up to start posting
+            </p>
         </div>
     );
 }

@@ -1,6 +1,5 @@
 import { getSession } from "next-auth/react";
 import EditReviewModal from "../../components/EditReviewModal";
-import Router from "next/router";
 import connectMongo from "../../mongoDB/connectDB";
 import Review from "../../mongoDB/models/reviewModel";
 import DeleteReviewModal from "../../components/DeleteReviewModal";

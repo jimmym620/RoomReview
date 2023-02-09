@@ -5,7 +5,7 @@ import moment from "moment";
 import { Fragment, useState } from "react";
 import { BiX } from "react-icons/bi";
 
-export default function EditReviewModal({ close, data }) {
+export default function EditReviewModal({ data }) {
     const [isOpen, setIsOpen] = useState(false);
     function closeModal() {
         setIsOpen(false);
@@ -48,7 +48,7 @@ export default function EditReviewModal({ close, data }) {
     return (
         <div className="w-1/2 md:w-1/3 mx-auto flex justify-center">
             <button
-                className="bg-blue-500 border w-full m-auto rounded-md text-white mt-1"
+                className="bg-blue-500 border py-1 w-full m-auto rounded-md text-white mt-1"
                 onClick={openModal}
             >
                 Edit review
@@ -104,12 +104,15 @@ export default function EditReviewModal({ close, data }) {
                                                     className="border rounded p-2"
                                                     type="text"
                                                     defaultValue={data.title}
-                                                    {...register("title")}
+                                                    {...register("title", {
+                                                        required:
+                                                            "Title is required",
+                                                    })}
                                                 />
                                             </section>
 
                                             {errors.title && (
-                                                <span>
+                                                <span className="text-red-500 font-medium">
                                                     This field is required
                                                 </span>
                                             )}
@@ -120,7 +123,10 @@ export default function EditReviewModal({ close, data }) {
                                                 </label>
                                                 <input
                                                     className="border rounded p-2"
-                                                    {...register("location")}
+                                                    {...register("location", {
+                                                        required:
+                                                            "Title is required",
+                                                    })}
                                                     defaultValue={data.location}
                                                 ></input>
                                             </section>
