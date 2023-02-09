@@ -1,10 +1,9 @@
 import { getSession } from "next-auth/react";
-import ReviewModal from "../../components/ReviewModal";
 import EditReviewModal from "../../components/EditReviewModal";
-import { useState } from "react";
 import Router from "next/router";
 import connectMongo from "../../mongoDB/connectDB";
 import Review from "../../mongoDB/models/reviewModel";
+import DeleteReviewModal from "../../components/DeleteReviewModal";
 
 export default function Index({ result, session }) {
     if (session) {
@@ -31,15 +30,11 @@ export default function Index({ result, session }) {
                                     <span> {review.location}</span>
                                 </h3>
                                 <EditReviewModal data={review} />
-                                <button
-                                    className="bg-red-500 border w-1/2 md:w-1/3 m-auto rounded-md text-white mt-1"
-                                    onClick={() => {
-                                        deleteReview(review._id);
-                                        Router.push("/dashboard");
-                                    }}
-                                >
-                                    Delete
-                                </button>
+                                <DeleteReviewModal
+                                    deleteReview={() =>
+                                        deleteReview(review._id)
+                                    }
+                                />
                             </article>
                         );
                     })}
