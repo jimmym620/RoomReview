@@ -1,11 +1,31 @@
 import moment from "moment";
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
 
-import { getSession } from "next-auth/react";
+// import Review from "../../mongoDB/models/reviewModel";
 
-import connectMongo from "../../mongoDB/connectDB";
-import Review from "../../mongoDB/models/reviewModel";
+export default function Index({}) {
+    const { data: session } = useSession();
+    const [results, setResults] = useState([]);
+    const [isLoading, setLoading] = useState(false);
+    useEffect(() => {
+        setLoading(true);
+        const requestOptions = {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        };
+        fetch("/api/reviews/requests", requestOptions)
+            .then((res) => res.json())
+            .then((data) => {
+                setResults(data);
+                setLoading(false);
+            });
+    }, []);
 
-export default function Index({ results, session }) {
+    if (isLoading) return <p>Loading...</p>;
+
     return (
         <div>
             <h1 className="text-center text-3xl mb-2">Recently Posted</h1>
@@ -108,17 +128,17 @@ const likePost = async (reviewId, userId) => {
         });
 };
 
-export async function getServerSideProps(context) {
-    const session = await getSession(context);
-    await connectMongo();
-    let results = {};
-    try {
-        results = await Review.find({}).lean();
-    } catch (err) {
-        console.log(err);
-    }
+// export async function getServerSideProps(context) {
+//     const session = await getSession(context);
+//     await connectMongo();
+//     let results = {};
+//     try {
+//         results = await Review.find({}).lean();
+//     } catch (err) {
+//         console.log(err);
+//     }
 
-    return {
-        props: { results: JSON.parse(JSON.stringify(results)), session },
-    };
-}
+//     return {
+//         props: { results: JSON.parse(JSON.stringify(results)), session },
+//     };
+// }

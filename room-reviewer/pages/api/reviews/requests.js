@@ -21,6 +21,15 @@ export default async function handler(req, res) {
                     .send({ message: "Successfully created post" });
             }
         });
+    } else if (req.method === "GET") {
+        await Review.find({}).then(function (err, result) {
+            if (err) {
+                return res.send(err);
+            } else {
+                return result;
+            }
+        });
+        // .lean();
     } else if (req.method === "PATCH") {
         const id = req.query.reviewId;
         await Review.updateOne({ _id: id }, { $set: req.body }).then(function (
