@@ -34,11 +34,17 @@ export default function Index({}) {
                 <section className="flex flex-col gap-2 w-11/12 md:w-1/2 m-auto">
                     {results.map((review) => {
                         return (
-                            <article className="border p-4 " key={review._id}>
-                                <h3 className="text-2xl" id="title">
+                            <article
+                                className="border p-4 text-center"
+                                key={review._id}
+                            >
+                                <h3
+                                    className="text-2xl text-center mb-1"
+                                    id="title"
+                                >
                                     {review.title}
                                 </h3>
-                                <div className="grid grid-cols-2">
+                                <div className="grid grid-cols-2 m-auto">
                                     <div>
                                         <section>
                                             <p>
