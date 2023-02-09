@@ -1,7 +1,6 @@
 import { signOut } from "next-auth/react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
-import Image from "next/image";
 
 export default function SignOutModalBody({ session }) {
     const [isOpen, setIsOpen] = useState(false);

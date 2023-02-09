@@ -1,15 +1,12 @@
-import { signIn, getSession } from "next-auth/react";
-import { Button, Modal } from "react-bootstrap";
+import { getSession } from "next-auth/react";
 import ReviewModal from "../../components/ReviewModal";
+import EditReviewModal from "../../components/EditReviewModal";
 import { useState } from "react";
 import Router from "next/router";
 import connectMongo from "../../mongoDB/connectDB";
 import Review from "../../mongoDB/models/reviewModel";
 
 export default function Index({ result, session }) {
-    const [showModal, setShowModal] = useState(false);
-    const [modalData, setModalData] = useState({});
-
     if (session) {
         return (
             <div>
@@ -33,15 +30,7 @@ export default function Index({ result, session }) {
                                     Hotel Name:
                                     <span> {review.location}</span>
                                 </h3>
-                                <button
-                                    className="bg-blue-500 border w-1/2 md:w-1/3 m-auto rounded-md text-white mt-1"
-                                    onClick={() => {
-                                        setShowModal(true);
-                                        setModalData(review);
-                                    }}
-                                >
-                                    Edit review
-                                </button>
+                                <EditReviewModal data={review} />
                                 <button
                                     className="bg-red-500 border w-1/2 md:w-1/3 m-auto rounded-md text-white mt-1"
                                     onClick={() => {
@@ -51,20 +40,6 @@ export default function Index({ result, session }) {
                                 >
                                     Delete
                                 </button>
-                                <Modal
-                                    show={showModal}
-                                    onHide={() => setShowModal(false)}
-                                >
-                                    <ReviewModal
-                                        close={() => setShowModal(false)}
-                                        id={modalData._id}
-                                        title={modalData.title}
-                                        location={modalData.location}
-                                        rating={modalData.rating}
-                                        dateVisited={modalData.dateVisited}
-                                        comment={modalData.comment}
-                                    />
-                                </Modal>
                             </article>
                         );
                     })}

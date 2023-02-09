@@ -1,4 +1,4 @@
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import { BiMenu } from "react-icons/bi";
 import SignOutModalBody from "./SignOutModalBody";

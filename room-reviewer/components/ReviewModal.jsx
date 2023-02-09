@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import moment from "moment";
 
-function ReviewModal({
+export default function ReviewModal({
     close,
     id,
     title,
@@ -121,5 +121,3 @@ function ReviewModal({
         </>
     );
 }
-
-export default ReviewModal;

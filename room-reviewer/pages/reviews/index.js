@@ -106,7 +106,7 @@ const likePost = async (reviewId, userId) => {
         });
 };
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
     const session = await getSession(context);
     await connectMongo();
     let results = {};
