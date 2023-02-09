@@ -14,7 +14,7 @@ Hosted on [Vercel](https://room-review.vercel.app)
 
 -   Next.js
 -   [NextAuth](https://next-auth.js.org/)
--   Bootstrap
+-   TailwindCSS
 -   SASS
 -   MongoDB
     -   Mongoose

@@ -43,10 +43,10 @@ export default NavigationBar;
 
 const BurgerNav = ({ session }) => {
     return (
-        <div className=" w-1/3 md:w-1/4 absolute right-0 p-1 z-10 mt-10 rounded-sm bg-emerald-400 flex flex-col gap-1">
+        <div className=" w-1/3 md:w-1/4 absolute right-0 p-1 z-10 mt-10 rounded-md bg-emerald-400 flex flex-col gap-1">
             {session && (
                 <>
-                    <p className=" text-sm text-center ">{session.user.name}</p>
+                    <p className=" text-md text-center ">{session.user.name}</p>
                     <hr className="w-2/3 m-auto h-px  my-1 md:my-2 bg-gray-200 border-0 dark:bg-gray-700" />
                 </>
             )}

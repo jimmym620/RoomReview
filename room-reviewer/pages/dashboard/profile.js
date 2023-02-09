@@ -1,5 +1,4 @@
 import { useSession, signOut, getSession } from "next-auth/react";
-import Button from "react-bootstrap/Button";
 
 export default function Profile() {
     const { data: session, status } = useSession();
@@ -8,13 +7,13 @@ export default function Profile() {
         return (
             <div>
                 <p>Welcome {session.user.name}</p>
-                <Button
+                <button
                     onClick={() => {
                         signOut();
                     }}
                 >
                     Sign Out
-                </Button>
+                </button>
             </div>
         );
     } else {

@@ -48,7 +48,7 @@ export default function EditReviewModal({ data }) {
     return (
         <div className="w-1/2 md:w-1/3 mx-auto flex justify-center">
             <button
-                className="bg-blue-500 border py-1 w-full m-auto rounded-md text-white mt-1"
+                className="bg-blue-500 border py-1 w-full m-auto rounded-md text-white mt-1 hover:bg-blue-400"
                 onClick={openModal}
             >
                 Edit review
@@ -129,6 +129,11 @@ export default function EditReviewModal({ data }) {
                                                     })}
                                                     defaultValue={data.location}
                                                 ></input>
+                                                {errors.location && (
+                                                    <span className="text-red-500 font-medium">
+                                                        This field is required
+                                                    </span>
+                                                )}
                                             </section>
 
                                             <section className="flex flex-col gap-2">
@@ -173,7 +178,7 @@ export default function EditReviewModal({ data }) {
                                             </section>
                                             <button
                                                 type="submit"
-                                                className="w-1/2 m-auto p-2 text-white border rounded bg-blue-500"
+                                                className="w-1/2 m-auto p-2 text-white border rounded bg-blue-500 hover:bg-blue-400"
                                             >
                                                 Submit
                                             </button>

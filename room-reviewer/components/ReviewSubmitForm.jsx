@@ -1,4 +1,3 @@
-import { Form, Button } from "react-bootstrap";
 import { useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
@@ -13,7 +12,7 @@ export default function ReviewSubmitForm() {
 
     const { data: session } = useSession();
 
-    const onFormSubmit = async (data) => {
+    const onSubmit = async (data) => {
         const requestOptions = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -34,23 +33,42 @@ export default function ReviewSubmitForm() {
     // console.log(watch("Title"));
     return (
         <div>
-            <Form className="reviewForm " onSubmit={handleSubmit(onFormSubmit)}>
-                <Form.Group className="mb-1">
-                    <Form.Label>Title</Form.Label>
-                    <Form.Control
+            <h1 className="text-2xl text-center">Add Review</h1>
+            <form
+                className="flex flex-col gap-3 md:w-1/3 m-auto"
+                onSubmit={handleSubmit(onSubmit)}
+            >
+                <section className="flex flex-col gap-1">
+                    <label>Title:</label>
+
+                    <input
+                        className="border rounded p-2"
+                        type="text"
                         {...register("title", {
                             required: "Title is required",
                         })}
-                    ></Form.Control>
-                    {errors.title && <span>This field is required</span>}
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Hotel name / Place of stay </Form.Label>
-                    <Form.Control
-                        {...register("location", { required: true })}
-                    ></Form.Control>
-                    {errors.location && <span>This field is required</span>}
-                </Form.Group>
+                    />
+                    {errors.title && (
+                        <span className="text-red-500 font-medium">
+                            This field is required
+                        </span>
+                    )}
+                </section>
+
+                <section className="flex flex-col gap-1">
+                    <label>Hotel name / Place of stay </label>
+                    <input
+                        className="border rounded p-2"
+                        {...register("location", {
+                            required: "Title is required",
+                        })}
+                    ></input>
+                    {errors.location && (
+                        <span className="text-red-500 font-medium">
+                            This field is required
+                        </span>
+                    )}
+                </section>
 
                 <input
                     type="hidden"
@@ -63,41 +81,55 @@ export default function ReviewSubmitForm() {
                     value={session.user.id}
                 />
 
-                <Form.Group>
-                    <Form.Label htmlFor="rating">
+                <section className="flex flex-col gap-1">
+                    <label htmlFor="rating">
                         How would you rate your experience?
-                    </Form.Label>
-                    <select {...register("rating")} className="form-control">
+                    </label>
+                    <select
+                        {...register("rating")}
+                        className="border rounded p-2"
+                    >
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
                         <option value="4">4</option>
                         <option value="5">5</option>
                     </select>
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Date of visit:</Form.Label>
-                    <Form.Control
-                        {...register("dateVisited", { required: true })}
+                </section>
+
+                <section className="inline-block align-middle">
+                    <label className="mr-4">Date of visit:</label>
+                    <input
+                        className="border rounded p-2"
+                        {...register("dateVisited")}
                         type="date"
                         defaultValue={"2022-01-01"}
                     />
-                    {errors.dateVisited && <span>This field is required</span>}
-                </Form.Group>
-                <Form.Group className="mb-2" controlId="formBasicBody">
-                    <Form.Label>
+                </section>
+                {errors.dateVisited && (
+                    <span className="text-red-500 font-medium">
+                        This field is required
+                    </span>
+                )}
+
+                <section className="flex flex-col gap-2">
+                    <label>
                         Describe your experience <i>(optional)</i>
-                    </Form.Label>
+                    </label>
                     <textarea
-                        className="form-control"
+                        className="border rounded p-2"
                         {...register("comment")}
                         rows="3"
                     ></textarea>
-                    <Button className="submitBTN" type="submit">
-                        Submit
-                    </Button>
-                </Form.Group>
-            </Form>
+                </section>
+
+                <button
+                    type="submit"
+                    className="w-1/2 m-auto p-2 text-white border rounded bg-blue-500 hover:bg-blue-400"
+                >
+                    Submit
+                </button>
+            </form>
         </div>
     );
 }

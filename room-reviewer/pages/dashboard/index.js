@@ -17,11 +17,11 @@ export default function Index({ result, session }) {
                         <h2 className="mt-2 text-2xl">Your reviews</h2>
                     </div>
                 </section>
-                <section className="w-11/12 md:w-1/3 mx-auto">
+                <section className="w-11/12 md:w-1/3 mx-auto flex flex-col gap-4">
                     {result.map((review) => {
                         return (
                             <article
-                                className="border rounded flex flex-col justify-center py-2"
+                                className="border rounded flex flex-col justify-center p-4"
                                 key={review._id}
                             >
                                 <h3 className="text-2xl text-center">

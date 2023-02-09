@@ -1,27 +1,26 @@
 import ReviewSubmitForm from "../../components/ReviewSubmitForm";
 import { useSession, signIn } from "next-auth/react";
-import Button from "react-bootstrap/Button";
 
 export default function SubmitReview() {
     const { data: session, status } = useSession();
     if (status === "authenticated") {
         return (
             <div>
-                <h1>Add a review</h1>
                 <ReviewSubmitForm />
             </div>
         );
     } else {
         return (
-            <div>
+            <div className="w-1/2 m-auto p-2">
                 <p> Want to contribute by adding a review? Sign in below.</p>
-                <Button
+                <button
+                    className=" p-2 text-white border mt-2 rounded bg-blue-500 hover:bg-blue-400"
                     onClick={() => {
                         signIn();
                     }}
                 >
                     Sign In
-                </Button>
+                </button>
             </div>
         );
     }
