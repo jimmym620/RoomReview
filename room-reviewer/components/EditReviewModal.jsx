@@ -48,7 +48,7 @@ export default function EditReviewModal({ data }) {
     return (
         <div className="w-1/2 md:w-1/3 mx-auto flex justify-center">
             <button
-                className="bg-blue-500 border py-1 w-full m-auto rounded-md text-white mt-1 hover:bg-blue-400"
+                className="bg-neutral text-primary border border-black py-1 w-full m-auto rounded-md mt-1 hover:bg-tertiary"
                 onClick={openModal}
             >
                 Edit review
@@ -78,7 +78,7 @@ export default function EditReviewModal({ data }) {
                                 leaveFrom="opacity-100 scale-100"
                                 leaveTo="opacity-0 scale-95"
                             >
-                                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-accent p-6 text-left align-middle shadow-xl transition-all">
                                     <div className="flex justify-between">
                                         <Dialog.Title className="text-lg font-medium leading-6 align-center text-gray-900 ">
                                             Edit
@@ -178,7 +178,7 @@ export default function EditReviewModal({ data }) {
                                             </section>
                                             <button
                                                 type="submit"
-                                                className="w-1/2 m-auto p-2 text-white border rounded bg-blue-500 hover:bg-blue-400"
+                                                className="w-1/2 m-auto p-2  border rounded bg-neutral text-primary hover:bg-tertiary font-medium"
                                             >
                                                 Submit
                                             </button>

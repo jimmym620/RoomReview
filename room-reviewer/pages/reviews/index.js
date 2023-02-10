@@ -31,11 +31,11 @@ export default function Index({}) {
             <h1 className="text-center text-3xl mb-2">Recently Posted</h1>
 
             {results && (
-                <section className="flex flex-col gap-2 w-11/12 md:w-1/2 m-auto">
+                <section className="flex flex-col gap-2 w-11/12 md:w-1/3 m-auto">
                     {results.map((review) => {
                         return (
                             <article
-                                className="border p-4 text-center"
+                                className="border rounded-md p-4 text-center"
                                 key={review._id}
                             >
                                 <h3
@@ -52,11 +52,19 @@ export default function Index({}) {
                                                 {review.author}
                                             </p>
 
+                                            <section>
+                                                <p>
+                                                    <b>At: </b>
+                                                    {review.location}
+                                                </p>
+                                            </section>
+
                                             {session ? ( // IF session exists
                                                 review.authorID !==
                                                 session.user.id ? ( //IF the post author isn't the the current session user
                                                     <div id="upvote-container">
                                                         <button
+                                                            className="bg-neutral text-white p-2 rounded-md"
                                                             onClick={() => {
                                                                 likePost(
                                                                     review._id,
@@ -74,13 +82,6 @@ export default function Index({}) {
                                                     </div>
                                                 ) : null
                                             ) : null}
-                                        </section>
-
-                                        <section>
-                                            <p>
-                                                <b>At: </b>
-                                                {review.location}
-                                            </p>
                                         </section>
                                     </div>
                                     <div>
@@ -101,7 +102,7 @@ export default function Index({}) {
                                 <p className="text-sm">
                                     {review.upvotedBy.length} upvotes
                                 </p>
-                                <hr className="w-2/3 m-auto h-px  my-3 md:my-5 bg-gray-200 border-0 dark:bg-gray-700" />
+                                <hr className="w-2/3 m-auto h-px  my-3 md:my-5 bg-black border-0" />
                                 <p className="text-center">{review.comment}</p>
                             </article>
                         );

@@ -16,7 +16,7 @@ export default function DeleteReviewModal({ deleteReview }) {
             <button
                 type="button"
                 onClick={openModal}
-                className="bg-red-500 border py-1 w-full m-auto rounded-md text-white mt-1 hover:bg-red-400"
+                className="bg-neutral border border-black py-1 w-full m-auto rounded-md text-primary mt-1 hover:bg-tertiary"
             >
                 Delete
             </button>
@@ -54,7 +54,7 @@ export default function DeleteReviewModal({ deleteReview }) {
                                 leaveFrom="opacity-100 scale-100"
                                 leaveTo="opacity-0 scale-95"
                             >
-                                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-neutral text-primary p-6 text-left align-middle shadow-xl transition-all">
                                     <Dialog.Title
                                         as="h3"
                                         className="text-lg font-medium leading-6 text-gray-900"
@@ -72,7 +72,7 @@ export default function DeleteReviewModal({ deleteReview }) {
                                     <div className="mt-4">
                                         <button
                                             type="button"
-                                            className="inline-flex justify-center rounded-md border border-transparent bg-blue-200 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                                            className="inline-flex justify-center rounded-md border border-transparent bg-tertiary px-4 py-2 text-sm font-medium text-black hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                                             onClick={() => {
                                                 deleteReview();
                                                 Router.push("/dashboard");
@@ -82,7 +82,7 @@ export default function DeleteReviewModal({ deleteReview }) {
                                         </button>
                                         <button
                                             type="button"
-                                            className="inline-flex justify-center rounded-md border border-transparent bg-red-200 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
+                                            className="inline-flex justify-center rounded-md border border-transparent bg-tertiary px-4 py-2 text-sm font-medium text-black hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
                                             onClick={closeModal}
                                         >
                                             No

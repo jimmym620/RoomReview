@@ -125,7 +125,7 @@ export default function ReviewSubmitForm() {
 
                 <button
                     type="submit"
-                    className="w-1/2 m-auto p-2 text-white border rounded bg-blue-500 hover:bg-blue-400"
+                    className="w-1/2 m-auto p-2 border border-black rounded-lg bg-neutral text-primary hover:bg-tertiary"
                 >
                     Submit
                 </button>
