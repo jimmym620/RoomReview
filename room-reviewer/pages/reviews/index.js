@@ -129,6 +129,7 @@ const likePost = async (reviewId, userId) => {
     await fetch("/api/reviews/" + reviewId, requestOptions)
         .then(() => {
             window.location.reload();
+            return;
         })
         .catch((err) => {
             return console.log(err);
