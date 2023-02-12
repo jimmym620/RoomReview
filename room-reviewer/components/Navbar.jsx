@@ -5,6 +5,7 @@ import SignOutModalBody from "./SignOutModalBody";
 import NavLoginBtn from "./NavLoginBtn";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { BiCool } from "react-icons/bi";
 
 function NavigationBar() {
     const { data: session, status } = useSession();
@@ -60,7 +61,10 @@ const BurgerNav = ({ session }) => {
                 {/* if user is authenticated, render sign in or out button */}
                 {session ? (
                     <>
-                        <Link href="/dashboard">Dashboard</Link>
+                        <div className="flex m-auto gap-1 items-center">
+                            <Link href="/dashboard">Dashboard</Link>
+                            <BiCool />
+                        </div>
                         <SignOutModalBody session={session} />
                     </>
                 ) : (

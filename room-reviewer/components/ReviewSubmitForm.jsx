@@ -1,6 +1,7 @@
 import { useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
+import { BiStar, BiBuildingHouse, BiCommentDetail } from "react-icons/bi";
 
 export default function ReviewSubmitForm() {
     const router = useRouter();
@@ -56,7 +57,10 @@ export default function ReviewSubmitForm() {
                 </section>
 
                 <section className="flex flex-col gap-1">
-                    <label>Hotel name / Place of stay </label>
+                    <label className="flex gap-1 items-center">
+                        Hotel name / Place of stay
+                        <BiBuildingHouse />
+                    </label>
                     <input
                         className="border rounded p-2"
                         {...register("location", {
@@ -82,8 +86,9 @@ export default function ReviewSubmitForm() {
                 />
 
                 <section className="flex flex-col gap-1">
-                    <label htmlFor="rating">
+                    <label htmlFor="rating" className="flex gap-1 items-center">
                         How would you rate your experience?
+                        <BiStar />
                     </label>
                     <select
                         {...register("rating")}
@@ -113,8 +118,10 @@ export default function ReviewSubmitForm() {
                 )}
 
                 <section className="flex flex-col gap-2">
-                    <label>
-                        Describe your experience <i>(optional)</i>
+                    <label className="flex gap-1 items-center">
+                        Describe your experience
+                        <BiCommentDetail />
+                        <i> (optional)</i>
                     </label>
                     <textarea
                         className="border rounded p-2"

@@ -3,17 +3,29 @@ import EditReviewModal from "../../components/EditReviewModal";
 import connectMongo from "../../mongoDB/connectDB";
 import Review from "../../mongoDB/models/reviewModel";
 import DeleteReviewModal from "../../components/DeleteReviewModal";
+import { BiStar, BiCommentEdit } from "react-icons/bi";
 
 export default function Index({ result, session }) {
     if (session) {
         return (
             <div>
-                <section className="text-center">
+                <section className="text-center ">
                     <h1 className="text-3xl">Dashboard</h1>
 
-                    <div>
-                        <p>Your reviews: {result.length}</p>
-                        <p>Reviews liked by others: {countLikes(result)}</p>
+                    <div className="w-1/2 m-auto">
+                        <div className="flex flex-row m-auto justify-center">
+                            <p className="flex items-center">
+                                <BiCommentEdit />
+                                Your reviews
+                            </p>
+                            <p className="flex">: {result.length}</p>
+                        </div>
+                        <div className="flex flex-row m-auto justify-center ">
+                            <p className="flex items-center">
+                                <BiStar /> Likes received
+                            </p>
+                            <p className="flex">: {countLikes(result)}</p>
+                        </div>
                         <h2 className="mt-2 text-2xl">Your reviews</h2>
                     </div>
                 </section>
