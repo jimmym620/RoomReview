@@ -1,6 +1,7 @@
 import moment from "moment";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
+import { BiLike, BiDislike, BiStar } from "react-icons/bi";
 
 // import Review from "../../mongoDB/models/reviewModel";
 
@@ -68,7 +69,7 @@ export default function Index({}) {
                                                 session.user.id ? ( //IF the post author isn't the the current session user
                                                     <div id="upvote-container">
                                                         <button
-                                                            className="bg-neutral text-white p-2 rounded-md"
+                                                            className="bg-neutral gap-1 m-auto text-white p-2 rounded-md"
                                                             onClick={() => {
                                                                 likePost(
                                                                     review._id,
@@ -79,22 +80,31 @@ export default function Index({}) {
                                                         >
                                                             {review.upvotedBy.includes(
                                                                 session.user.id
-                                                            )
-                                                                ? "Unlike"
-                                                                : "Like"}
+                                                            ) ? (
+                                                                <div className="flex items-center gap-1">
+                                                                    Unlike
+                                                                    <BiDislike />
+                                                                </div>
+                                                            ) : (
+                                                                <div className="flex items-center gap-1">
+                                                                    Like
+                                                                    <BiLike />
+                                                                </div>
+                                                            )}
                                                         </button>
                                                     </div>
                                                 ) : null
                                             ) : null}
                                         </section>
                                     </div>
-                                    <div>
-                                        <p id="rating">
+                                    <div className="mx-auto ">
+                                        <p className="flex m-auto gap-1 items-center">
                                             <b>Rating: </b>
                                             {review.rating} / 5
+                                            <BiStar />
                                         </p>
                                         <div>
-                                            <p>
+                                            <p className="flex m-auto gap-1 items-center">
                                                 <b>Visited: </b>
                                                 {moment(
                                                     review.dateVisited
@@ -104,7 +114,10 @@ export default function Index({}) {
                                     </div>
                                 </div>
                                 <p className="text-sm">
-                                    {review.upvotedBy.length} upvotes
+                                    {review.upvotedBy.length}{" "}
+                                    {review.upvotedBy.length == 1
+                                        ? "like"
+                                        : "likes"}
                                 </p>
                                 <hr className="w-2/3 m-auto h-px  my-3 md:my-5 bg-black border-0" />
                                 <p className="text-center">{review.comment}</p>
