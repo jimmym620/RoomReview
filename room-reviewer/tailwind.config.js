@@ -19,8 +19,13 @@ module.exports = {
             black: "#000000",
             white: "#FFFFFF",
         },
-        fontFamily: {
-            dosis: ["dosis", "sans-serif"],
+        extend: {
+            fontFamily: {
+                dosis: ["dosis", "sans-serif"],
+            },
+            animation: {
+                "spin-slow": "spin 3s linear infinite",
+            },
         },
     },
     plugins: [],

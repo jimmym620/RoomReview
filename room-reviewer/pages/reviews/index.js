@@ -24,12 +24,16 @@ export default function Index({}) {
             });
     }, []);
 
-    if (isLoading) return <p>Loading...</p>;
+    if (isLoading)
+        return (
+            <h1 className="text-xl animate-spin-slow w-1/3 m-auto text-center">
+                Loading
+            </h1>
+        );
 
     return (
         <div>
-            <h1 className="text-center text-3xl mb-2">Recently Posted</h1>
-
+            ;<h1 className="text-center text-3xl mb-2">Recently Posted</h1>
             {results && (
                 <section className="flex flex-col gap-2 w-11/12 md:w-1/3 m-auto">
                     {results.map((review) => {
@@ -109,8 +113,7 @@ export default function Index({}) {
                     })}
                 </section>
             )}
-
-            <p className="text-center">
+            <p className="text-center mt-1 animate-bounce">
                 Want to add a review? Sign up to start posting
             </p>
         </div>
